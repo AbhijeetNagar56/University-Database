@@ -12,4 +12,13 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/create", async (req, res) => {
+  try {
+    const [rows] = await pool.query("CREATE TABLE ABCD(Id Integer primary key)");
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 export default router;
