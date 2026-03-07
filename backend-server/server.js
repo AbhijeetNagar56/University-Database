@@ -19,9 +19,9 @@ app.get("/", (req, res) => {
   res.send("University Accommodation Office API is running...");
 });
 
-app.get("/query", async (req, res) => {
+app.post("/query", async (req, res) => {
   try {
-    const query = req.body;
+    const { query } = req.body;
     const [rows] = await pool.query(`${query}`);
     res.json(rows);
   } catch (err) {
