@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 app.get("/query", async (req, res) => {
   try {
-    const { query } = req.body;
+    const query = req.body;
     const [rows] = await pool.query(`${query}`);
     res.json(rows);
   } catch (err) {
