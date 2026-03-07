@@ -1,0 +1,178 @@
+12 talbes
+___________________________________________________________________
+Students                                                           |
+   │                                                               |
+   ├── Adviser                                                     |
+   ├── Course                                                      |
+   ├── Next_of_Kin                                                 |
+   └── Lease                                                       |
+                                                                   |
+Lease
+   │
+   └── Place_Number → Hall_Room OR Apartment_Room
+
+Hall
+   │
+   └── Hall_Rooms
+
+Apartment
+   │
+   ├── Apartment_Rooms
+   └── Inspections
+
+Residence_Staff
+   │
+   ├── Hall Manager
+   └── Inspector
+
+
+___________________________________________________________________
+
+
+Students
+--------
+banner_number (PK)
+first_name
+last_name
+street
+city
+postcode
+mobile_phone
+email
+date_of_birth
+gender
+student_category
+nationality
+special_needs
+additional_comments
+status
+major
+minor
+adviser_id (FK)
+course_id (FK)
+
+
+Advisers
+--------
+adviser_id (PK)
+full_name
+position
+department_name
+internal_phone
+email
+room_number
+
+
+Courses
+-------
+course_id (PK)
+course_title
+course_year
+instructor_name
+instructor_phone
+instructor_email
+instructor_room
+department_name
+
+
+Residence_Staff
+---------------
+staff_id (PK)
+first_name
+last_name
+email
+street
+city
+postcode
+date_of_birth
+gender
+position
+location
+
+
+Halls
+-----
+hall_id (PK)
+hall_name
+street
+city
+postcode
+telephone
+manager_staff_id (FK)
+
+
+Hall_Rooms
+----------
+place_number (PK)
+hall_id (FK)
+room_number
+monthly_rent
+
+
+Apartments
+----------
+apartment_id (PK)
+street
+city
+postcode
+num_bedrooms
+
+
+Apartment_Rooms
+---------------
+place_number (PK)
+apartment_id (FK)
+room_number
+monthly_rent
+
+
+Leases
+------
+lease_id (PK)
+banner_number (FK)
+place_number
+lease_duration_semesters
+start_date
+end_date
+address
+room_number
+
+
+Invoices
+--------
+invoice_id (PK)
+lease_id (FK)
+semester
+payment_due
+banner_number (FK)
+place_number
+room_number
+address
+date_paid
+payment_method
+first_reminder_date
+second_reminder_date
+
+
+Apartment_Inspections
+---------------------
+inspection_id (PK)
+apartment_id (FK)
+staff_id (FK)
+inspection_date
+satisfactory
+comments
+
+
+Next_of_Kin
+-----------
+kin_id (PK)
+banner_number (FK)
+name
+relationship
+street
+city
+postcode
+phone
+
+
