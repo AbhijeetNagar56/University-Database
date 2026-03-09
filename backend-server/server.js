@@ -1,8 +1,19 @@
 import express from "express";
 import cors from "cors";
+
 import studentsRoutes from "./routes/students.js";
+import advisersRoutes from "./routes/advisers.js";
+import coursesRoutes from "./routes/courses.js";
+import residenceStaffRoutes from "./routes/residenceStaff.js";
+import hallsRoutes from "./routes/halls.js";
+import hallRoomsRoutes from "./routes/hallRooms.js";
+import apartmentsRoutes from "./routes/apartments.js";
+import apartmentRoomsRoutes from "./routes/apartmentRooms.js";
 import leasesRoutes from "./routes/leases.js";
 import invoicesRoutes from "./routes/invoices.js";
+import inspectionsRoutes from "./routes/apartmentInspections.js";
+import kinRoutes from "./routes/nextOfKin.js";
+
 import pool from "./db.js";
 
 const app = express();
@@ -12,8 +23,17 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/students", studentsRoutes);
+app.use("/advisers", advisersRoutes);
+app.use("/courses", coursesRoutes);
+app.use("/staff", residenceStaffRoutes);
+app.use("/halls", hallsRoutes);
+app.use("/hallrooms", hallRoomsRoutes);
+app.use("/apartments", apartmentsRoutes);
+app.use("/apartmentrooms", apartmentRoomsRoutes);
 app.use("/leases", leasesRoutes);
 app.use("/invoices", invoicesRoutes);
+app.use("/inspections", inspectionsRoutes);
+app.use("/kin", kinRoutes);
 
 app.get("/", (req, res) => {
   res.send("University Accommodation Office API is running...");
@@ -22,7 +42,7 @@ app.get("/", (req, res) => {
 app.post("/query", async (req, res) => {
   try {
     const { query } = req.body;
-    const [rows] = await pool.query(`${query}`);
+    const [rows] = await pool.query(query);
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
