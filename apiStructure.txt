@@ -1,0 +1,76 @@
+UNIVERSITY ACCOMMODATION OFFICE API STRUCTURE
+
+1.  Students API GET /students -> getAllStudents() : Retrieve all
+    students GET /students/:banner_number -> getStudentById() : Retrieve
+    one student POST /students -> createStudent() : Insert a new student
+    PUT /students/:banner_number -> updateStudent() : Update student
+    details DELETE /students/:banner_number -> deleteStudent() : Delete
+    student
+
+2.  Advisers API GET /advisers -> getAllAdvisers() : Retrieve all
+    advisers GET /advisers/:id -> getAdviserById() : Retrieve adviser
+    POST /advisers -> createAdviser() : Add adviser PUT /advisers/:id ->
+    updateAdviser() : Update adviser DELETE /advisers/:id ->
+    deleteAdviser() : Delete adviser
+
+3.  Courses API GET /courses -> getAllCourses() : Retrieve all courses
+    GET /courses/:id -> getCourseById() : Retrieve course POST /courses
+    -> createCourse() : Add new course PUT /courses/:id ->
+    updateCourse() : Update course DELETE /courses/:id -> deleteCourse()
+    : Delete course
+
+4.  Residence Staff API GET /staff -> getAllStaff() : Retrieve staff
+    list GET /staff/:id -> getStaffById() : Retrieve specific staff POST
+    /staff -> createStaff() : Add staff PUT /staff/:id -> updateStaff()
+    : Update staff DELETE /staff/:id -> deleteStaff() : Delete staff
+
+5.  Halls API GET /halls -> getAllHalls() : Retrieve halls GET
+    /halls/:id -> getHallById() : Retrieve specific hall POST /halls ->
+    createHall() : Add hall PUT /halls/:id -> updateHall() : Update hall
+    DELETE /halls/:id -> deleteHall() : Delete hall
+
+6.  Hall Rooms API GET /hallrooms -> getAllHallRooms() : Retrieve all
+    hall rooms GET /hallrooms/:id -> getHallRoomById() : Retrieve hall
+    room POST /hallrooms -> createHallRoom() : Add room PUT
+    /hallrooms/:id -> updateHallRoom() : Update room DELETE
+    /hallrooms/:id -> deleteHallRoom() : Delete room
+
+7.  Apartments API GET /apartments -> getAllApartments() : Retrieve
+    apartments GET /apartments/:id -> getApartmentById() : Retrieve
+    apartment POST /apartments -> createApartment() : Add apartment PUT
+    /apartments/:id -> updateApartment() : Update apartment DELETE
+    /apartments/:id -> deleteApartment() : Delete apartment
+
+8.  Apartment Rooms API GET /apartmentrooms -> getAllApartmentRooms() :
+    Retrieve rooms GET /apartmentrooms/:id -> getApartmentRoomById() :
+    Retrieve room POST /apartmentrooms -> createApartmentRoom() : Add
+    room PUT /apartmentrooms/:id -> updateApartmentRoom() : Update room
+    DELETE /apartmentrooms/:id -> deleteApartmentRoom() : Delete room
+
+9.  Leases API GET /leases -> getAllLeases() : Retrieve all leases GET
+    /leases/:id -> getLeaseById() : Retrieve lease POST /leases ->
+    createLease() : Create lease PUT /leases/:id -> updateLease() :
+    Update lease DELETE /leases/:id -> deleteLease() : Delete lease
+
+10. Invoices API GET /invoices -> getAllInvoices() : Retrieve invoices
+    GET /invoices/:id -> getInvoiceById() : Retrieve invoice POST
+    /invoices -> createInvoice() : Create invoice PUT /invoices/:id ->
+    updateInvoice() : Update invoice DELETE /invoices/:id ->
+    deleteInvoice() : Delete invoice
+
+11. Apartment Inspections API GET /inspections -> getAllInspections() :
+    Retrieve inspections GET /inspections/:id -> getInspectionById() :
+    Retrieve inspection POST /inspections -> createInspection() : Add
+    inspection PUT /inspections/:id -> updateInspection() : Update
+    inspection DELETE /inspections/:id -> deleteInspection() : Delete
+    inspection
+
+12. Next of Kin API GET /kin -> getAllKin() : Retrieve next of kin GET
+    /kin/:id -> getKinById() : Retrieve specific kin POST /kin ->
+    createKin() : Add next of kin PUT /kin/:id -> updateKin() : Update
+    kin DELETE /kin/:id -> deleteKin() : Delete kin
+
+13. General Query API POST /query -> executeQuery() : Execute raw SQL
+    query
+
+Example Request Body: { “query”: “SELECT * FROM Students” }
