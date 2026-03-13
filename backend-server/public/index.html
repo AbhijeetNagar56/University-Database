@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Frontend</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0f1117;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #f8fafc;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+
+        .query-box {
+            background: #1e2130;
+            border: 1px solid #2d3148;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        textarea {
+            width: 100%;
+            height: 130px;
+            background: #0f1117;
+            border: 1px solid #2d3148;
+            border-radius: 8px;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            padding: 12px;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: #6366f1;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        #run {
+            background: #6366f1;
+            color: #fff;
+        }
+
+        #run:hover {
+            opacity: 0.88;
+        }
+
+        #run:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #clear {
+            background: #2d3148;
+            color: #94a3b8;
+        }
+
+        #clear:hover {
+            background: #363b55;
+        }
+
+        .output-box {
+            background: #1e2130;
+            border: 1px solid #2d3148;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .output-title {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .status-badge.success {
+            background: #14532d;
+            color: #4ade80;
+            display: inline-block;
+        }
+
+        .status-badge.error {
+            background: #450a0a;
+            color: #f87171;
+            display: inline-block;
+        }
+
+        .status-badge.loading {
+            background: #1e3a5f;
+            color: #60a5fa;
+            display: inline-block;
+        }
+
+        #result {
+            background: #0f1117;
+            border: 1px solid #2d3148;
+            border-radius: 8px;
+            padding: 14px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            min-height: 80px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-x: auto;
+        }
+
+        #result.has-data {
+            color: #e2e8f0;
+        }
+
+        #result.has-error {
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DBMS Query Runner</h1>
+        <p class="subtitle">Write and execute your database queries below</p>
+
+        <div class="query-box">
+            <label for="query">SQL Query</label>
+            <textarea id="query" placeholder="SELECT * FROM users WHERE id = 1;"></textarea>
+            <div class="btn-row">
+                <button id="run" onclick="handleRun()">▶ Execute</button>
+                <button id="clear" onclick="handleClear()">✕ Clear</button>
+            </div>
+        </div>
+
+        <div class="output-box">
+            <div class="output-header">
+                <span class="output-title">Output</span>
+                <span class="status-badge" id="status"></span>
+            </div>
+            <pre id="result">Results will appear here...</pre>
+        </div>
+    </div>
+
+    <script>
+        const handleRun = async () => {
+            const query = document.getElementById("query").value.trim();
+            const resultEl = document.getElementById("result");
+            const statusEl = document.getElementById("status");
+            const runBtn = document.getElementById("run");
+
+            if (!query) {
+                setStatus("error", "Empty Query");
+                resultEl.textContent = "⚠ Please enter a query before executing.";
+                resultEl.className = "has-error";
+                return;
+            }
+
+            // Loading state
+            runBtn.disabled = true;
+            setStatus("loading", "Running...");
+            resultEl.textContent = "Executing query...";
+            resultEl.className = "";
+
+            try {
+                const response = await fetch("/query", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ query }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                setStatus("success", "Success");
+                // Pretty print if object, else display as string
+                resultEl.textContent = typeof data === "object"
+                    ? JSON.stringify(data, null, 2)
+                    : data;
+                resultEl.className = "has-data";
+
+            } catch (error) {
+                setStatus("error", "Error");
+                resultEl.textContent = `✖ ${error.message}`;
+                resultEl.className = "has-error";
+            } finally {
+                runBtn.disabled = false;
+            }
+        };
+
+        const handleClear = () => {
+            document.getElementById("query").value = "";
+            document.getElementById("result").textContent = "Results will appear here...";
+            document.getElementById("result").className = "";
+            document.getElementById("status").className = "status-badge";
+        };
+
+        const setStatus = (type, text) => {
+            const statusEl = document.getElementById("status");
+            statusEl.textContent = text;
+            statusEl.className = `status-badge ${type}`;
+        };
+
+        // Allow Ctrl+Enter to execute
+        document.getElementById("query").addEventListener("keydown", (e) => {
+            if (e.ctrlKey && e.key === "Enter") handleRun();
+        });
+    </script>
+</body>
+</html>
