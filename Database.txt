@@ -175,4 +175,16 @@ city
 postcode
 phone
 
-
+order of insertion
+1. Advisers
+2. Courses
+3. Residence_Staff
+4. Apartments
+5. Students
+6. Halls
+7. Apartment_Rooms
+8. Hall_Rooms
+9. Next_of_Kin
+10. Leases
+11. Invoices
+12. Apartment_Inspections
