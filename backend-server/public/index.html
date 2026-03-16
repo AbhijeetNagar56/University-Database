@@ -1,286 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DBMS Frontend</title>
-    <link rel="icon" href="./iconapp.png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./iconapp.png">
 
-        body {
-            min-height: 100vh;
-            background: #0f1117;
-            color: #e2e8f0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 40px 16px;
-        }
+<title>DBMS Query Runner</title>
 
-        .container {
-            width: 100%;
-            max-width: 800px;
-        }
+<style>
+body {
+  background:#0f1117;
+  color:#e2e8f0;
+  font-family:Segoe UI;
+  padding:40px;
+}
 
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #f8fafc;
-        }
+.container{
+  max-width:800px;
+  margin:auto;
+}
 
-        .subtitle {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 28px;
-        }
+textarea{
+  width:100%;
+  height:120px;
+  background:#1e2130;
+  color:white;
+  border:none;
+  padding:10px;
+  margin-bottom:10px;
+}
 
-        .query-box {
-            background: #1e2130;
-            border: 1px solid #2d3148;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-        }
+button{
+  padding:10px 20px;
+  background:#6366f1;
+  color:white;
+  border:none;
+  margin-right:10px;
+  cursor:pointer;
+}
 
-        label {
-            display: block;
-            font-size: 0.85rem;
-            color: #94a3b8;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+select,input{
+  padding:10px;
+  margin:10px 0;
+  width:100%;
+  background:#1e2130;
+  color:white;
+  border:none;
+}
 
-        textarea {
-            width: 100%;
-            height: 130px;
-            background: #0f1117;
-            border: 1px solid #2d3148;
-            border-radius: 8px;
-            color: #e2e8f0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
-            padding: 12px;
-            resize: vertical;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        textarea:focus {
-            border-color: #6366f1;
-        }
-
-        .btn-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 14px;
-        }
-
-        button {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s, transform 0.1s;
-        }
-
-        button:active {
-            transform: scale(0.97);
-        }
-
-        #run {
-            background: #6366f1;
-            color: #fff;
-        }
-
-        #run:hover {
-            opacity: 0.88;
-        }
-
-        #run:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        #clear {
-            background: #2d3148;
-            color: #94a3b8;
-        }
-
-        #clear:hover {
-            background: #363b55;
-        }
-
-        .output-box {
-            background: #1e2130;
-            border: 1px solid #2d3148;
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .output-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
-
-        .output-title {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .status-badge {
-            font-size: 0.75rem;
-            padding: 3px 10px;
-            border-radius: 999px;
-            font-weight: 600;
-            display: none;
-        }
-
-        .status-badge.success {
-            background: #14532d;
-            color: #4ade80;
-            display: inline-block;
-        }
-
-        .status-badge.error {
-            background: #450a0a;
-            color: #f87171;
-            display: inline-block;
-        }
-
-        .status-badge.loading {
-            background: #1e3a5f;
-            color: #60a5fa;
-            display: inline-block;
-        }
-
-        #result {
-            background: #0f1117;
-            border: 1px solid #2d3148;
-            border-radius: 8px;
-            padding: 14px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #94a3b8;
-            min-height: 80px;
-            white-space: pre-wrap;
-            word-break: break-word;
-            overflow-x: auto;
-        }
-
-        #result.has-data {
-            color: #e2e8f0;
-        }
-
-        #result.has-error {
-            color: #f87171;
-        }
-    </style>
+.output{
+  background:#1e2130;
+  padding:15px;
+  margin-top:20px;
+  white-space:pre-wrap;
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>DBMS Query Runner</h1>
-        <p class="subtitle">Write and execute your database queries below</p>
 
-        <div class="query-box">
-            <label for="query">SQL Query</label>
-            <textarea id="query" placeholder="SELECT * FROM users WHERE id = 1;"></textarea>
-            <div class="btn-row">
-                <button id="run" onclick="handleRun()">▶ Execute</button>
-                <button id="clear" onclick="handleClear()">✕ Clear</button>
-            </div>
-        </div>
+<div class="container">
 
-        <div class="output-box">
-            <div class="output-header">
-                <span class="output-title">Output</span>
-                <span class="status-badge" id="status"></span>
-            </div>
-            <pre id="result">Results will appear here...</pre>
-        </div>
-    </div>
+<h2>SQL Query Runner</h2>
 
-    <script>
-        const handleRun = async () => {
-            const query = document.getElementById("query").value.trim();
-            const resultEl = document.getElementById("result");
-            const statusEl = document.getElementById("status");
-            const runBtn = document.getElementById("run");
+<textarea id="query" placeholder="SELECT * FROM Students"></textarea>
+<button onclick="runQuery()">Execute</button>
 
-            if (!query) {
-                setStatus("error", "Empty Query");
-                resultEl.textContent = "⚠ Please enter a query before executing.";
-                resultEl.className = "has-error";
-                return;
-            }
+<hr>
 
-            // Loading state
-            runBtn.disabled = true;
-            setStatus("loading", "Running...");
-            resultEl.textContent = "Executing query...";
-            resultEl.className = "";
+<h2>CSV Upload</h2>
 
-            try {
-                const response = await fetch("/query", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ query }),
-                });
+<select id="table">
+<option value="Students">Students</option>
+<option value="Advisers">Advisers</option>
+<option value="Courses">Courses</option>
+<option value="Residence_Staff">Residence_Staff</option>
+<option value="Halls">Halls</option>
+<option value="Hall_Rooms">Hall_Rooms</option>
+<option value="Apartments">Apartments</option>
+<option value="Apartment_Rooms">Apartment_Rooms</option>
+<option value="Leases">Leases</option>
+<option value="Invoices">Invoices</option>
+<option value="Apartment_Inspections">Apartment_Inspections</option>
+<option value="Next_of_Kin">Next_of_Kin</option>
+</select>
 
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.status} ${response.statusText}`);
-                }
+<input type="file" id="csvFile" />
 
-                const data = await response.json();
+<button onclick="uploadCSV()">Upload CSV</button>
 
-                setStatus("success", "Success");
-                // Pretty print if object, else display as string
-                resultEl.textContent = typeof data === "object"
-                    ? JSON.stringify(data, null, 2)
-                    : data;
-                resultEl.className = "has-data";
+<div class="output" id="output">Output will appear here...</div>
 
-            } catch (error) {
-                setStatus("error", "Error");
-                resultEl.textContent = `✖ ${error.message}`;
-                resultEl.className = "has-error";
-            } finally {
-                runBtn.disabled = false;
-            }
-        };
+</div>
 
-        const handleClear = () => {
-            document.getElementById("query").value = "";
-            document.getElementById("result").textContent = "Results will appear here...";
-            document.getElementById("result").className = "";
-            document.getElementById("status").className = "status-badge";
-        };
+<script>
 
-        const setStatus = (type, text) => {
-            const statusEl = document.getElementById("status");
-            statusEl.textContent = text;
-            statusEl.className = `status-badge ${type}`;
-        };
+async function runQuery(){
+  const query=document.getElementById("query").value;
 
-        // Allow Ctrl+Enter to execute
-        document.getElementById("query").addEventListener("keydown", (e) => {
-            if (e.ctrlKey && e.key === "Enter") handleRun();
-        });
-    </script>
+  const res=await fetch("/query",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({query})
+  });
+
+  const data=await res.json();
+  document.getElementById("output").innerText=JSON.stringify(data,null,2);
+}
+
+async function uploadCSV(){
+
+  const file=document.getElementById("csvFile").files[0];
+  const table=document.getElementById("table").value;
+
+  if(!file){
+    alert("Select CSV file");
+    return;
+  }
+
+  const formData=new FormData();
+  formData.append("file",file);
+
+  document.getElementById("output").innerText="Uploading...";
+
+  const res=await fetch(`/upload-csv/${table}`,{
+    method:"POST",
+    body:formData
+  });
+
+  const data=await res.json();
+  document.getElementById("output").innerText=JSON.stringify(data,null,2);
+}
+
+</script>
+
 </body>
 </html>
