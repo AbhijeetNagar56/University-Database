@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="./iconapp.png">
-
-<title>DBMS Query Runner</title>
+<title>DBMS Admin Panel</title>
 
 <style>
 body {
@@ -20,14 +17,13 @@ body {
   margin:auto;
 }
 
-textarea{
+input,textarea,select{
   width:100%;
-  height:120px;
+  padding:10px;
+  margin:10px 0;
   background:#1e2130;
   color:white;
   border:none;
-  padding:10px;
-  margin-bottom:10px;
 }
 
 button{
@@ -35,17 +31,12 @@ button{
   background:#6366f1;
   color:white;
   border:none;
-  margin-right:10px;
   cursor:pointer;
+  margin-right:10px;
 }
 
-select,input{
-  padding:10px;
-  margin:10px 0;
-  width:100%;
-  background:#1e2130;
-  color:white;
-  border:none;
+button:hover{
+  opacity:0.9;
 }
 
 .output{
@@ -53,6 +44,15 @@ select,input{
   padding:15px;
   margin-top:20px;
   white-space:pre-wrap;
+  min-height:100px;
+}
+
+.error{
+  color:#f87171;
+}
+
+.success{
+  color:#34d399;
 }
 </style>
 </head>
@@ -61,10 +61,23 @@ select,input{
 
 <div class="container">
 
-<h2>SQL Query Runner</h2>
+<!-- LOGIN -->
+<div id="loginBox">
+  <h2>Admin Login</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <div id="loginStatus"></div>
+</div>
 
+<!-- APP -->
+<div id="app" style="display:none;">
+
+<h2>SQL Query Runner</h2>
 <textarea id="query" placeholder="SELECT * FROM Students"></textarea>
+
 <button onclick="runQuery()">Execute</button>
+<button onclick="logout()">Logout</button>
 
 <hr>
 
@@ -85,7 +98,7 @@ select,input{
 <option value="Next_of_Kin">Next_of_Kin</option>
 </select>
 
-<input type="file" id="csvFile" accept=".csv,text/csv" />
+<input type="file" id="csvFile" accept=".csv">
 
 <button onclick="uploadCSV()">Upload CSV</button>
 
@@ -93,43 +106,114 @@ select,input{
 
 </div>
 
+</div>
+
 <script>
 
-async function runQuery(){
-  const query=document.getElementById("query").value;
+// ================= LOGIN =================
 
-  const res=await fetch("/query",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({query})
-  });
+async function login(){
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  const data=await res.json();
-  document.getElementById("output").innerText=JSON.stringify(data,null,2);
+  const statusBox = document.getElementById("loginStatus");
+  statusBox.innerText = "Logging in...";
+
+  try{
+    const res = await fetch("/login",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({ username, password })
+    });
+
+    const data = await res.json();
+
+    if(res.ok){
+      statusBox.innerHTML = `<span class="success">Login successful</span>`;
+      document.getElementById("loginBox").style.display="none";
+      document.getElementById("app").style.display="block";
+    }else{
+      statusBox.innerHTML = `<span class="error">${data.error}</span>`;
+    }
+  }catch(err){
+    statusBox.innerHTML = `<span class="error">Server error</span>`;
+  }
 }
+
+// ================= LOGOUT =================
+
+async function logout(){
+  await fetch("/logout",{ method:"POST" });
+  location.reload();
+}
+
+// ================= QUERY =================
+
+async function runQuery(){
+  const query = document.getElementById("query").value;
+  const output = document.getElementById("output");
+
+  output.innerText = "Running query...";
+
+  try{
+    const res = await fetch("/query",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({query})
+    });
+
+    const data = await res.json();
+
+    if(res.status === 401){
+      alert("Session expired. Please login again.");
+      location.reload();
+      return;
+    }
+
+    output.innerText = JSON.stringify(data,null,2);
+
+  }catch(err){
+    output.innerText = "Error running query";
+  }
+}
+
+// ================= CSV =================
 
 async function uploadCSV(){
 
-  const file=document.getElementById("csvFile").files[0];
-  const table=document.getElementById("table").value;
+  const file = document.getElementById("csvFile").files[0];
+  const table = document.getElementById("table").value;
+  const output = document.getElementById("output");
 
   if(!file){
     alert("Select CSV file");
     return;
   }
 
-  const formData=new FormData();
+  const formData = new FormData();
   formData.append("file",file);
 
-  document.getElementById("output").innerText="Uploading...";
+  output.innerText = "Uploading CSV...";
 
-  const res=await fetch(`/upload-csv/${table}`,{
-    method:"POST",
-    body:formData
-  });
+  try{
+    const res = await fetch(`/upload-csv/${table}`,{
+      method:"POST",
+      body:formData
+    });
 
-  const data=await res.json();
-  document.getElementById("output").innerText=JSON.stringify(data,null,2);
+    const data = await res.json();
+
+    if(res.status === 401){
+      alert("Session expired. Please login again.");
+      location.reload();
+      return;
+    }
+
+    output.innerText = JSON.stringify(data,null,2);
+
+  }catch(err){
+    output.innerText = "Upload failed";
+  }
 }
 
 </script>

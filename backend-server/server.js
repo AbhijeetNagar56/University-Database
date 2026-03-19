@@ -4,6 +4,8 @@ import path from "path";
 import multer from "multer";
 import csv from "csv-parser";
 import fs from "fs";
+import session from "express-session";
+import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 
 import studentsRoutes from "./routes/students.js";
@@ -21,43 +23,85 @@ import kinRoutes from "./routes/nextOfKin.js";
 
 import pool from "./db.js";
 
+// LOAD ENV
+dotenv.config();
+
 const app = express();
 const DEFAULT_PORT = Number(process.env.PORT) || 5000;
+
+// ENV VARIABLES
+const ADMIN_USER = process.env.ADMIN_USER;
+const ADMIN_PASS = process.env.ADMIN_PASS;
+const SESSION_SECRET = process.env.SESSION_SECRET || "fallback_secret";
 
 // __dirname fix
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const uploadsDir = path.join(__dirname, "uploads");
 
+// create uploads folder
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
+// middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// Routes
-app.use("/students", studentsRoutes);
-app.use("/advisers", advisersRoutes);
-app.use("/courses", coursesRoutes);
-app.use("/staff", residenceStaffRoutes);
-app.use("/halls", hallsRoutes);
-app.use("/hallrooms", hallRoomsRoutes);
-app.use("/apartments", apartmentsRoutes);
-app.use("/apartmentrooms", apartmentRoomsRoutes);
-app.use("/leases", leasesRoutes);
-app.use("/invoices", invoicesRoutes);
-app.use("/inspections", inspectionsRoutes);
-app.use("/kin", kinRoutes);
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }
+}));
 
-// Root
+// ================= AUTH =================
+
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    req.session.user = { username };
+    return res.json({ message: "Login successful" });
+  }
+
+  res.status(401).json({ error: "Invalid credentials" });
+});
+
+app.post("/logout", (req, res) => {
+  req.session.destroy();
+  res.json({ message: "Logged out" });
+});
+
+const isAuthenticated = (req, res, next) => {
+  if (req.session.user) return next();
+  return res.status(401).json({ error: "Unauthorized" });
+};
+
+// ================= ROUTES =================
+
+app.use("/students", isAuthenticated, studentsRoutes);
+app.use("/advisers", isAuthenticated, advisersRoutes);
+app.use("/courses", isAuthenticated, coursesRoutes);
+app.use("/staff", isAuthenticated, residenceStaffRoutes);
+app.use("/halls", isAuthenticated, hallsRoutes);
+app.use("/hallrooms", isAuthenticated, hallRoomsRoutes);
+app.use("/apartments", isAuthenticated, apartmentsRoutes);
+app.use("/apartmentrooms", isAuthenticated, apartmentRoomsRoutes);
+app.use("/leases", isAuthenticated, leasesRoutes);
+app.use("/invoices", isAuthenticated, invoicesRoutes);
+app.use("/inspections", isAuthenticated, inspectionsRoutes);
+app.use("/kin", isAuthenticated, kinRoutes);
+
+// root
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// SQL query runner
-app.post("/query", async (req, res) => {
+// ================= QUERY =================
+
+app.post("/query", isAuthenticated, async (req, res) => {
   try {
     const { query } = req.body;
     const [rows] = await pool.query(query);
@@ -67,23 +111,12 @@ app.post("/query", async (req, res) => {
   }
 });
 
+// ================= CSV =================
 
-// ================= CSV UPLOAD API =================
-
-// multer setup
 const allowedTables = new Set([
-  "Students",
-  "Advisers",
-  "Courses",
-  "Residence_Staff",
-  "Halls",
-  "Hall_Rooms",
-  "Apartments",
-  "Apartment_Rooms",
-  "Leases",
-  "Invoices",
-  "Apartment_Inspections",
-  "Next_of_Kin",
+  "Students","Advisers","Courses","Residence_Staff","Halls",
+  "Hall_Rooms","Apartments","Apartment_Rooms","Leases",
+  "Invoices","Apartment_Inspections","Next_of_Kin"
 ]);
 
 const storage = multer.diskStorage({
@@ -97,90 +130,43 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   fileFilter: (_req, file, cb) => {
-    const isCsvMime = [
-      "text/csv",
-      "application/csv",
-      "application/vnd.ms-excel",
-      "text/plain",
-    ].includes(file.mimetype);
-    const hasCsvExtension = path.extname(file.originalname).toLowerCase() === ".csv";
-
-    if (isCsvMime || hasCsvExtension) {
-      cb(null, true);
-      return;
-    }
-
-    cb(new Error("Only CSV files are allowed"));
+    const valid = file.mimetype.includes("csv") || file.originalname.endsWith(".csv");
+    valid ? cb(null, true) : cb(new Error("Only CSV files allowed"));
   },
 });
 
 const removeFileIfExists = (filePath) => {
-  if (filePath && fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
-  }
+  if (filePath && fs.existsSync(filePath)) fs.unlinkSync(filePath);
 };
 
-app.post("/upload-csv/:table", upload.single("file"), async (req, res) => {
+app.post("/upload-csv/:table", isAuthenticated, upload.single("file"), async (req, res) => {
   const table = req.params.table;
   const filePath = req.file?.path;
 
   if (!allowedTables.has(table)) {
     removeFileIfExists(filePath);
-    return res.status(400).json({ error: `Unsupported table: ${table}` });
-  }
-
-  if (!req.file) {
-    return res.status(400).json({ error: "CSV file is required" });
+    return res.status(400).json({ error: "Invalid table" });
   }
 
   const rows = [];
 
   fs.createReadStream(filePath)
-    .pipe(csv({ mapHeaders: ({ header }) => header.trim().replace(/^\uFEFF/, "") }))
+    .pipe(csv())
     .on("data", (data) => rows.push(data))
-    .on("error", (err) => {
-      removeFileIfExists(filePath);
-      res.status(400).json({ error: `Failed to parse CSV: ${err.message}` });
-    })
     .on("end", async () => {
       try {
-        if (rows.length === 0) {
-          removeFileIfExists(filePath);
-          return res.status(400).json({ error: "CSV is empty" });
-        }
-
         const columns = Object.keys(rows[0]);
-
-        if (columns.length === 0) {
-          removeFileIfExists(filePath);
-          return res.status(400).json({ error: "CSV must include a header row" });
-        }
-
-        const [tableColumns] = await pool.query(`SHOW COLUMNS FROM \`${table}\``);
-        const validColumns = new Set(tableColumns.map((column) => column.Field));
-        const invalidColumns = columns.filter((column) => !validColumns.has(column));
-
-        if (invalidColumns.length > 0) {
-          removeFileIfExists(filePath);
-          return res.status(400).json({
-            error: `CSV contains invalid columns for ${table}: ${invalidColumns.join(", ")}`,
-          });
-        }
-
-        const values = rows.map(row => columns.map(col => row[col]));
+        const values = rows.map(r => columns.map(c => r[c]));
 
         const sql = `
-          INSERT INTO \`${table}\` (${columns.map((column) => `\`${column}\``).join(",")})
+          INSERT INTO \`${table}\` (${columns.map(c => `\`${c}\``).join(",")})
           VALUES ?
         `;
 
         await pool.query(sql, [values]);
-
         removeFileIfExists(filePath);
 
-        res.json({
-          message: `Inserted ${rows.length} rows into ${table}`
-        });
+        res.json({ message: `Inserted ${rows.length} rows` });
 
       } catch (err) {
         removeFileIfExists(filePath);
@@ -189,13 +175,13 @@ app.post("/upload-csv/:table", upload.single("file"), async (req, res) => {
     });
 });
 
-app.use((err, _req, res, _next) => {
-  if (err instanceof multer.MulterError || err.message === "Only CSV files are allowed") {
-    return res.status(400).json({ error: err.message });
-  }
+// ================= ERROR =================
 
-  return res.status(500).json({ error: err.message || "Unexpected server error" });
+app.use((err, _req, res, _next) => {
+  res.status(500).json({ error: err.message });
 });
+
+// ================= START =================
 
 const startServer = (port) => {
   const server = app.listen(port, () => {
@@ -203,14 +189,7 @@ const startServer = (port) => {
   });
 
   server.on("error", (err) => {
-    if (err.code === "EADDRINUSE") {
-      const fallbackPort = port + 1;
-      console.warn(`Port ${port} is already in use. Retrying on port ${fallbackPort}...`);
-      startServer(fallbackPort);
-      return;
-    }
-
-    throw err;
+    if (err.code === "EADDRINUSE") startServer(port + 1);
   });
 };
 
