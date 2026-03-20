@@ -56,6 +56,12 @@ app.use(session({
   cookie: { secure: false }
 }));
 
+// ================= WARM UP =================
+
+app.get("/ping", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
 // ================= AUTH =================
 
 app.post("/login", (req, res) => {
