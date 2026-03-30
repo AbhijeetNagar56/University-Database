@@ -188,3 +188,41 @@ order of insertion
 10. Leases
 11. Invoices
 12. Apartment_Inspections
+
+
+# creating talbes
+-- Adviser
+CREATE TABLE Advisers (adviser_id INT AUTO_INCREMENT PRIMARY KEY, full_name VARCHAR(100) NOT NULL, position VARCHAR(50), department_name VARCHAR(100), internal_phone VARCHAR(15), email VARCHAR(100) UNIQUE, room_number VARCHAR(10));
+
+-- Courses
+CREATE TABLE Courses (course_id INT AUTO_INCREMENT PRIMARY KEY, course_title VARCHAR(100) NOT NULL, course_year INT, instructor_name VARCHAR(100), instructor_phone VARCHAR(15), instructor_email VARCHAR(100), instructor_room VARCHAR(10), department_name VARCHAR(100));
+
+-- Residence_Staff
+CREATE TABLE Residence_Staff (staff_id INT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, email VARCHAR(100) UNIQUE, street VARCHAR(100), city VARCHAR(50), postcode VARCHAR(10), date_of_birth DATE, gender ENUM('Male','Female','Other'), position VARCHAR(50), location VARCHAR(100));
+
+-- Students
+CREATE TABLE Students (banner_number VARCHAR(15) PRIMARY KEY, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, street VARCHAR(100), city VARCHAR(50), postcode VARCHAR(10), mobile_phone VARCHAR(15), email VARCHAR(100) UNIQUE, date_of_birth DATE, gender ENUM('Male','Female','Other'), student_category VARCHAR(30), nationality VARCHAR(50), special_needs TEXT, additional_comments TEXT, status VARCHAR(20), major VARCHAR(50), minor VARCHAR(50), adviser_id INT, course_id INT, FOREIGN KEY (adviser_id) REFERENCES Advisers(adviser_id), FOREIGN KEY (course_id) REFERENCES Courses(course_id));
+
+-- Halls
+CREATE TABLE Halls (hall_id INT AUTO_INCREMENT PRIMARY KEY, hall_name VARCHAR(100) NOT NULL, street VARCHAR(100), city VARCHAR(50), postcode VARCHAR(10), telephone VARCHAR(15), manager_staff_id INT, FOREIGN KEY (manager_staff_id) REFERENCES Residence_Staff(staff_id));
+
+-- Hall_Rooms
+CREATE TABLE Hall_Rooms (place_number INT AUTO_INCREMENT PRIMARY KEY, hall_id INT NOT NULL, room_number VARCHAR(10), monthly_rent DECIMAL(10,2) NOT NULL, FOREIGN KEY (hall_id) REFERENCES Halls(hall_id));
+
+-- Apartments
+CREATE TABLE Apartments (apartment_id INT AUTO_INCREMENT PRIMARY KEY, street VARCHAR(100), city VARCHAR(50), postcode VARCHAR(10), num_bedrooms INT);
+
+-- Apartment_Rooms
+CREATE TABLE Apartment_Rooms (place_number INT AUTO_INCREMENT PRIMARY KEY, apartment_id INT NOT NULL, room_number VARCHAR(10), monthly_rent DECIMAL(10,2) NOT NULL, FOREIGN KEY (apartment_id) REFERENCES Apartments(apartment_id));
+
+-- Leases
+CREATE TABLE Leases (lease_id INT AUTO_INCREMENT PRIMARY KEY, banner_number VARCHAR(15), place_number INT, lease_duration_semesters INT, start_date DATE, end_date DATE, address VARCHAR(200), room_number VARCHAR(10), FOREIGN KEY (banner_number) REFERENCES Students(banner_number));
+
+-- Invoices
+CREATE TABLE Invoices (invoice_id INT AUTO_INCREMENT PRIMARY KEY, lease_id INT, semester VARCHAR(20), payment_due DECIMAL(10,2), banner_number VARCHAR(15), place_number INT, room_number VARCHAR(10), address VARCHAR(200), date_paid DATE, payment_method VARCHAR(30), first_reminder_date DATE, second_reminder_date DATE, FOREIGN KEY (lease_id) REFERENCES Leases(lease_id), FOREIGN KEY (banner_number) REFERENCES Students(banner_number));
+
+-- Apartment_Inspections
+CREATE TABLE Apartment_Inspections (inspection_id INT AUTO_INCREMENT PRIMARY KEY, apartment_id INT, staff_id INT, inspection_date DATE, satisfactory BOOLEAN, comments TEXT, FOREIGN KEY (apartment_id) REFERENCES Apartments(apartment_id), FOREIGN KEY (staff_id) REFERENCES Residence_Staff(staff_id));
+
+-- Next_of_Kin
+CREATE TABLE Next_of_Kin (kin_id INT AUTO_INCREMENT PRIMARY KEY, banner_number VARCHAR(15), name VARCHAR(100) NOT NULL, relationship VARCHAR(50), street VARCHAR(100), city VARCHAR(50), postcode VARCHAR(10), phone VARCHAR(15), FOREIGN KEY (banner_number) REFERENCES Students(banner_number));
