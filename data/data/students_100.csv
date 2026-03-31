@@ -1,0 +1,101 @@
+first_name,last_name,street,city,postcode,mobile_phone,email,date_of_birth,gender,student_category,nationality,special_needs,additional_comments,status,major,minor
+Kevin,Robinson,176 Maple Dr,Philadelphia,99502,+1-441-639-7951,kevin.robinson3@example.com,1998-06-27,Female,Exchange,Germany,false,No specific comments,Inactive,Psychology,Chemistry
+Bob,Robinson,573 Elm Rd,San Antonio,39830,+1-802-282-8135,bob.robinson88@example.com,1997-03-15,Non-binary,Postgraduate,UK,false,No specific comments,Inactive,Business,Chemistry
+Tina,Anderson,573 Elm Rd,New York,73904,+1-679-759-7931,tina.anderson9@example.com,1984-08-04,Male,Part-time,Mexico,false,No specific comments,Graduated,Science,Physics
+Tina,Clark,867 Pine Ln,Dallas,29621,+1-768-426-6300,tina.clark88@example.com,1996-04-30,Female,Exchange,Australia,true,Requires academic advising,Suspended,Computer Science,Chemistry
+Grace,Jones,867 Pine Ln,Dallas,28308,+1-708-526-2781,grace.jones39@example.com,1989-05-18,Male,Undergraduate,Germany,true,No specific comments,Graduated,History,Marketing
+Noah,Thomas,453 Oak Ave,Chicago,25712,+1-626-981-8124,noah.thomas47@example.com,1987-09-10,Male,Part-time,Canada,true,Comment for Noah,Inactive,Science,
+Frank,Robinson,176 Maple Dr,San Jose,66574,+1-791-602-8528,frank.robinson23@example.com,1985-04-28,Non-binary,Postgraduate,Mexico,false,No specific comments,Suspended,Psychology,Marketing
+Alice,Davis,573 Elm Rd,San Diego,99095,+1-885-879-7966,alice.davis14@example.com,1996-06-23,Female,Postgraduate,Brazil,false,No specific comments,Suspended,Psychology,Data Science
+Alice,White,397 Main St,San Antonio,59766,+1-683-552-6074,alice.white82@example.com,2001-05-14,Non-binary,Full-time,India,true,Participates in extracurriculars,Active,History,Physics
+Frank,Clark,453 Oak Ave,Phoenix,78479,+1-367-480-3661,frank.clark70@example.com,1983-12-18,Male,Full-time,Germany,false,No specific comments,Graduated,Psychology,Literature
+Frank,Smith,176 Maple Dr,San Antonio,21582,+1-989-634-6814,frank.smith59@example.com,1985-10-02,Non-binary,Undergraduate,UK,false,No specific comments,Active,Business,Finance
+Mia,Brown,397 Main St,New York,41094,+1-570-356-6228,mia.brown55@example.com,1996-09-03,Non-binary,Exchange,France,true,Participates in extracurriculars,Inactive,Psychology,Chemistry
+Rachel,Brown,867 Pine Ln,Dallas,66393,+1-682-455-4135,rachel.brown88@example.com,2003-10-01,Female,Postgraduate,Canada,false,No specific comments,Graduated,Computer Science,Sociology
+Bob,Miller,453 Oak Ave,Houston,72579,+1-591-573-1032,bob.miller65@example.com,1996-06-29,Male,Part-time,Canada,false,No specific comments,Graduated,Business,Data Science
+Quinn,Garcia,867 Pine Ln,Philadelphia,61378,+1-408-262-1725,quinn.garcia28@example.com,1986-06-19,Female,Part-time,Germany,true,Needs disability support,Inactive,Psychology,Physics
+Grace,Moore,453 Oak Ave,Chicago,95512,+1-544-530-9425,grace.moore17@example.com,1991-01-27,Female,Undergraduate,Australia,false,No specific comments,Inactive,History,Chemistry
+Liam,Taylor,176 Maple Dr,Houston,38187,+1-756-535-6445,liam.taylor3@example.com,1993-02-24,Non-binary,Exchange,Mexico,true,Participates in extracurriculars,Graduated,Engineering,Finance
+Quinn,Smith,573 Elm Rd,Philadelphia,23825,+1-442-306-2579,quinn.smith57@example.com,1987-11-08,Non-binary,Full-time,China,false,No specific comments,Inactive,Psychology,Data Science
+Eve,Anderson,453 Oak Ave,Dallas,46955,+1-306-424-7561,eve.anderson68@example.com,1987-10-03,Non-binary,Full-time,Mexico,true,Needs disability support,Suspended,Engineering,Sociology
+Kevin,Garcia,573 Elm Rd,San Antonio,81525,+1-334-533-3746,kevin.garcia5@example.com,1991-11-23,Female,Exchange,Canada,true,Comment for Kevin,Graduated,Arts,Economics
+Rachel,Clark,397 Main St,San Jose,64769,+1-830-326-7570,rachel.clark69@example.com,1990-07-04,Non-binary,Part-time,Australia,false,No specific comments,Active,Arts,Economics
+Eve,Williams,573 Elm Rd,Houston,37447,+1-385-249-4720,eve.williams50@example.com,1986-06-22,Non-binary,Exchange,China,false,No specific comments,Inactive,Business,Marketing
+Eve,Thompson,176 Maple Dr,Phoenix,52274,+1-981-796-1241,eve.thompson66@example.com,1991-12-04,Female,Postgraduate,USA,true,Requires academic advising,Suspended,Arts,Marketing
+Ivan,Williams,453 Oak Ave,San Jose,99502,+1-866-322-4451,ivan.williams78@example.com,2002-03-26,Female,Postgraduate,India,false,No specific comments,Inactive,Engineering,Economics
+Sam,Harris,867 Pine Ln,San Diego,72870,+1-414-308-8225,sam.harris36@example.com,1990-03-23,Male,Undergraduate,India,true,No specific comments,Active,Science,Chemistry
+Judy,Brown,397 Main St,San Antonio,44611,+1-572-694-8860,judy.brown68@example.com,1997-01-15,Non-binary,Postgraduate,Canada,false,No specific comments,Graduated,Psychology,Sociology
+Noah,Smith,573 Elm Rd,San Antonio,24659,+1-282-327-3936,noah.smith16@example.com,1988-11-08,Female,Full-time,France,false,No specific comments,Graduated,Psychology,Economics
+Bob,Williams,573 Elm Rd,New York,47768,+1-797-230-9286,bob.williams90@example.com,1990-08-11,Male,Full-time,Canada,true,Participates in extracurriculars,Suspended,History,Physics
+Noah,White,867 Pine Ln,San Antonio,64769,+1-281-631-4767,noah.white43@example.com,1998-02-15,Male,Part-time,India,true,Participates in extracurriculars,Graduated,Business,Literature
+Charlie,Robinson,867 Pine Ln,Dallas,34546,+1-579-841-8022,charlie.robinson24@example.com,1987-03-28,Female,Part-time,Australia,true,No specific comments,Active,Computer Science,Literature
+Eve,Martinez,453 Oak Ave,Phoenix,18034,+1-732-977-7342,eve.martinez35@example.com,1986-04-29,Non-binary,Exchange,India,true,Comment for Eve,Suspended,History,Finance
+Tina,Garcia,453 Oak Ave,Los Angeles,16963,+1-849-558-8662,tina.garcia93@example.com,2004-12-30,Female,Part-time,Brazil,true,Needs disability support,Active,History,Physics
+Diana,Smith,397 Main St,Phoenix,81525,+1-217-756-3850,diana.smith83@example.com,1983-11-04,Non-binary,Postgraduate,France,true,No specific comments,Graduated,Engineering,Data Science
+Liam,Davis,867 Pine Ln,Los Angeles,30158,+1-533-983-7018,liam.davis30@example.com,1993-02-12,Male,Part-time,UK,false,No specific comments,Graduated,Psychology,Physics
+Bob,Smith,176 Maple Dr,Houston,67164,+1-553-371-1568,bob.smith22@example.com,1983-05-22,Male,Part-time,Germany,false,No specific comments,Active,Business,Finance
+Mia,Martin,176 Maple Dr,Houston,21582,+1-270-834-8108,mia.martin42@example.com,1986-08-20,Male,Postgraduate,Mexico,false,No specific comments,Suspended,Arts,Economics
+Ivan,Jackson,573 Elm Rd,Houston,47232,+1-455-399-6160,ivan.jackson81@example.com,1982-06-18,Female,Full-time,Germany,true,Needs disability support,Active,Engineering,Economics
+Judy,Jones,176 Maple Dr,Chicago,53266,+1-841-698-8944,judy.jones41@example.com,1988-10-26,Non-binary,Full-time,Brazil,false,No specific comments,Suspended,Computer Science,Sociology
+Judy,White,397 Main St,New York,34546,+1-736-263-2455,judy.white47@example.com,1984-07-16,Non-binary,Undergraduate,UK,true,No specific comments,Inactive,History,Literature
+Frank,White,397 Main St,San Antonio,68775,+1-496-742-3023,frank.white72@example.com,2001-11-16,Non-binary,Undergraduate,France,true,Participates in extracurriculars,Active,History,Physics
+Bob,Clark,453 Oak Ave,Dallas,74272,+1-317-448-3599,bob.clark85@example.com,1980-08-07,Male,Part-time,Germany,true,Needs disability support,Inactive,Engineering,Physics
+Ivan,Jones,397 Main St,Philadelphia,72579,+1-830-498-5918,ivan.jones73@example.com,2005-04-04,Non-binary,Full-time,Australia,true,Needs disability support,Graduated,Mathematics,Economics
+Mia,Martinez,573 Elm Rd,Chicago,18034,+1-960-747-1023,mia.martinez13@example.com,1995-12-31,Non-binary,Full-time,Germany,false,No specific comments,Suspended,Psychology,Physics
+Olivia,Brown,453 Oak Ave,San Jose,66393,+1-625-780-1426,olivia.brown39@example.com,2001-09-25,Non-binary,Undergraduate,Germany,false,No specific comments,Inactive,Psychology,Literature
+Noah,Harris,573 Elm Rd,Chicago,95512,+1-864-926-3116,noah.harris32@example.com,1989-03-26,Non-binary,Exchange,France,true,Comment for Noah,Suspended,Arts,Finance
+Bob,Harris,176 Maple Dr,Los Angeles,38187,+1-468-838-9786,bob.harris31@example.com,1996-01-05,Female,Full-time,Germany,true,Participates in extracurriculars,Graduated,Science,Data Science
+Eve,Brown,397 Main St,San Diego,64232,+1-915-964-9360,eve.brown71@example.com,1988-08-14,Non-binary,Exchange,France,false,No specific comments,Inactive,Science,Chemistry
+Mia,Jackson,453 Oak Ave,San Diego,44611,+1-293-878-8518,mia.jackson90@example.com,1983-03-22,Female,Part-time,USA,true,Needs disability support,Inactive,Engineering,Physics
+Eve,Anderson,573 Elm Rd,San Diego,80949,+1-721-603-8360,eve.anderson7@example.com,2000-06-16,Male,Postgraduate,India,true,Comment for Eve,Active,Mathematics,Economics
+Noah,Smith,397 Main St,San Antonio,59766,+1-817-843-6868,noah.smith95@example.com,2000-03-15,Male,Postgraduate,Brazil,true,Requires academic advising,Suspended,Science,Chemistry
+Alice,Robinson,867 Pine Ln,Dallas,29621,+1-275-239-7415,alice.robinson32@example.com,1986-09-05,Non-binary,Part-time,Mexico,true,No specific comments,Suspended,Arts,Chemistry
+Tina,Jones,867 Pine Ln,Phoenix,72579,+1-449-252-9781,tina.jones54@example.com,1997-06-25,Female,Exchange,France,true,Comment for Tina,Graduated,Psychology,
+Judy,Martin,453 Oak Ave,Philadelphia,41658,+1-904-938-6029,judy.martin43@example.com,1986-07-29,Male,Postgraduate,Mexico,false,No specific comments,Active,Arts,Finance
+Quinn,Williams,453 Oak Ave,Dallas,59766,+1-768-943-8445,quinn.williams51@example.com,2005-02-20,Male,Exchange,Australia,false,No specific comments,Graduated,History,Physics
+Charlie,Miller,573 Elm Rd,Houston,97124,+1-692-656-8667,charlie.miller28@example.com,1999-11-25,Female,Undergraduate,Brazil,true,Needs disability support,Inactive,Computer Science,Literature
+Alice,Jackson,453 Oak Ave,Phoenix,46955,+1-257-754-5397,alice.jackson7@example.com,1986-09-13,Non-binary,Exchange,Germany,false,No specific comments,Active,Mathematics,Literature
+Ivan,Anderson,453 Oak Ave,Dallas,99228,+1-602-899-4255,ivan.anderson36@example.com,1999-01-18,Male,Full-time,Brazil,false,No specific comments,Active,Arts,
+Mia,Clark,573 Elm Rd,San Diego,41094,+1-792-477-7851,mia.clark21@example.com,1988-07-19,Male,Part-time,Mexico,false,No specific comments,Active,Business,Data Science
+Bob,Jackson,573 Elm Rd,San Antonio,46511,+1-693-403-6486,bob.jackson24@example.com,1991-05-15,Non-binary,Postgraduate,Australia,false,No specific comments,Active,History,
+Bob,Garcia,397 Main St,Houston,13449,+1-986-455-5747,bob.garcia85@example.com,1983-05-31,Female,Part-time,Mexico,true,Comment for Bob,Graduated,Science,Sociology
+Alice,Anderson,573 Elm Rd,Philadelphia,94143,+1-807-436-6828,alice.anderson89@example.com,1982-03-07,Male,Part-time,Canada,true,No specific comments,Graduated,Mathematics,Economics
+Diana,Jackson,453 Oak Ave,San Antonio,45446,+1-898-609-6512,diana.jackson28@example.com,1982-10-14,Non-binary,Full-time,USA,true,Participates in extracurriculars,Suspended,Mathematics,Data Science
+Rachel,Martinez,453 Oak Ave,Philadelphia,66673,+1-229-384-2099,rachel.martinez14@example.com,2003-01-09,Non-binary,Undergraduate,Canada,true,No specific comments,Suspended,Computer Science,Economics
+Frank,Davis,176 Maple Dr,New York,59964,+1-798-947-6911,frank.davis10@example.com,1990-02-20,Female,Undergraduate,Canada,false,No specific comments,Suspended,Computer Science,Literature
+Frank,Thompson,397 Main St,Los Angeles,47232,+1-980-375-7912,frank.thompson32@example.com,1998-06-28,Female,Undergraduate,Mexico,false,No specific comments,Graduated,Mathematics,Marketing
+Olivia,Brown,573 Elm Rd,Dallas,62667,+1-876-639-3781,olivia.brown29@example.com,2003-01-27,Non-binary,Undergraduate,Mexico,false,No specific comments,Graduated,Mathematics,Physics
+Sam,Williams,176 Maple Dr,Chicago,34546,+1-608-422-4393,sam.williams11@example.com,1996-03-29,Non-binary,Full-time,Germany,false,No specific comments,Active,Engineering,Physics
+Mia,Clark,867 Pine Ln,San Antonio,86088,+1-968-627-3700,mia.clark58@example.com,1998-10-25,Female,Postgraduate,UK,true,No specific comments,Active,Science,Finance
+Charlie,Brown,453 Oak Ave,Dallas,24797,+1-626-709-7969,charlie.brown15@example.com,1988-05-24,Non-binary,Exchange,Germany,false,No specific comments,Inactive,Mathematics,Chemistry
+Liam,Davis,176 Maple Dr,Los Angeles,41094,+1-547-568-6246,liam.davis19@example.com,2001-11-22,Non-binary,Postgraduate,Brazil,false,No specific comments,Graduated,Business,Literature
+Sam,Anderson,176 Maple Dr,Houston,39830,+1-873-836-2813,sam.anderson99@example.com,1988-03-19,Non-binary,Exchange,Australia,false,No specific comments,Inactive,Mathematics,Economics
+Frank,Thompson,176 Maple Dr,Los Angeles,30048,+1-706-396-4360,frank.thompson24@example.com,1998-08-20,Female,Exchange,India,true,Participates in extracurriculars,Inactive,Computer Science,Physics
+Mia,Moore,397 Main St,San Antonio,48180,+1-649-838-2573,mia.moore81@example.com,1985-04-28,Male,Postgraduate,France,true,Needs disability support,Active,Computer Science,Data Science
+Mia,Moore,397 Main St,Chicago,88048,+1-435-720-6036,mia.moore76@example.com,2004-02-07,Male,Part-time,Mexico,true,Comment for Mia,Graduated,Business,Physics
+Judy,Miller,176 Maple Dr,Chicago,38187,+1-805-427-6971,judy.miller78@example.com,1986-11-12,Non-binary,Part-time,Australia,true,Needs disability support,Inactive,Engineering,Data Science
+Quinn,Miller,573 Elm Rd,Houston,28308,+1-564-877-3714,quinn.miller96@example.com,1990-05-17,Male,Undergraduate,Mexico,true,Comment for Quinn,Inactive,Science,Physics
+Heidi,White,453 Oak Ave,New York,78479,+1-934-709-9843,heidi.white77@example.com,1991-06-26,Female,Exchange,India,true,Needs disability support,Active,Computer Science,Finance
+Bob,Thompson,573 Elm Rd,San Diego,35666,+1-263-827-7805,bob.thompson71@example.com,1993-12-26,Female,Undergraduate,China,false,No specific comments,Graduated,Business,Finance
+Kevin,Thomas,573 Elm Rd,Dallas,13449,+1-967-528-3546,kevin.thomas85@example.com,1989-05-28,Female,Postgraduate,Brazil,true,Requires academic advising,Inactive,History,Economics
+Grace,Thomas,176 Maple Dr,Philadelphia,61378,+1-207-977-2907,grace.thomas13@example.com,1995-07-11,Male,Full-time,Mexico,true,Participates in extracurriculars,Graduated,Business,Economics
+Ivan,Robinson,397 Main St,Chicago,44027,+1-478-873-9881,ivan.robinson61@example.com,2001-12-29,Non-binary,Part-time,USA,false,No specific comments,Suspended,Mathematics,Data Science
+Heidi,Martinez,397 Main St,San Jose,21184,+1-825-277-9322,heidi.martinez32@example.com,1989-10-22,Female,Exchange,Canada,true,Needs disability support,Suspended,Business,Sociology
+Kevin,Brown,397 Main St,Los Angeles,81525,+1-368-226-8930,kevin.brown62@example.com,1980-07-19,Female,Undergraduate,USA,true,Comment for Kevin,Inactive,Engineering,Finance
+Charlie,Smith,453 Oak Ave,Philadelphia,71553,+1-685-310-1776,charlie.smith13@example.com,1998-06-14,Male,Postgraduate,Brazil,false,No specific comments,Active,Engineering,
+Kevin,Robinson,176 Maple Dr,Houston,45446,+1-817-461-4120,kevin.robinson94@example.com,2001-08-20,Male,Full-time,France,false,No specific comments,Suspended,Psychology,Economics
+Bob,White,867 Pine Ln,Dallas,53266,+1-409-978-7112,bob.white46@example.com,1980-02-10,Male,Undergraduate,Canada,true,No specific comments,Graduated,History,Sociology
+Kevin,White,573 Elm Rd,San Jose,92004,+1-446-266-9561,kevin.white69@example.com,2005-05-03,Non-binary,Undergraduate,Germany,true,Needs disability support,Graduated,Psychology,Physics
+Bob,Williams,397 Main St,Chicago,62667,+1-810-593-9005,bob.williams47@example.com,1991-02-23,Non-binary,Part-time,Mexico,false,No specific comments,Inactive,Engineering,Chemistry
+Heidi,Jones,397 Main St,Los Angeles,35666,+1-358-261-5717,heidi.jones16@example.com,1996-11-25,Male,Full-time,Australia,true,Participates in extracurriculars,Active,Business,Physics
+Heidi,Brown,176 Maple Dr,Houston,29557,+1-497-535-7730,heidi.brown48@example.com,1986-11-13,Non-binary,Undergraduate,India,false,No specific comments,Active,Mathematics,Literature
+Quinn,Garcia,397 Main St,San Antonio,84023,+1-526-225-7993,quinn.garcia64@example.com,1985-04-16,Female,Part-time,Germany,true,Needs disability support,Suspended,Engineering,Marketing
+Tina,Miller,573 Elm Rd,San Jose,27211,+1-901-782-2634,tina.miller40@example.com,1998-06-15,Non-binary,Postgraduate,Australia,true,Comment for Tina,Inactive,Psychology,Finance
+Bob,Thomas,867 Pine Ln,Philadelphia,88048,+1-349-596-7218,bob.thomas98@example.com,1990-11-24,Non-binary,Postgraduate,Mexico,true,Participates in extracurriculars,Inactive,Arts,Literature
+Liam,Jones,453 Oak Ave,San Jose,95016,+1-908-289-8188,liam.jones60@example.com,1994-04-19,Female,Postgraduate,Canada,true,Needs disability support,Suspended,Science,Physics
+Heidi,Garcia,867 Pine Ln,Phoenix,99095,+1-586-216-4552,heidi.garcia25@example.com,2001-12-27,Female,Exchange,France,true,Comment for Heidi,Active,Mathematics,Literature
+Tina,Williams,397 Main St,Los Angeles,50282,+1-248-272-8419,tina.williams49@example.com,1981-02-14,Non-binary,Undergraduate,Canada,false,No specific comments,Active,Psychology,Marketing
+Eve,Brown,176 Maple Dr,Houston,68071,+1-566-524-2010,eve.brown31@example.com,1984-08-05,Female,Exchange,Germany,true,Participates in extracurriculars,Inactive,Computer Science,Chemistry
+Heidi,Smith,453 Oak Ave,Houston,97124,+1-801-438-3297,heidi.smith61@example.com,1987-12-27,Male,Part-time,Germany,false,No specific comments,Active,Engineering,Finance
+Judy,Martin,397 Main St,San Diego,72579,+1-452-402-7461,judy.martin49@example.com,2000-09-05,Male,Full-time,UK,false,No specific comments,Suspended,Business,Sociology
+Peter,Clark,453 Oak Ave,San Antonio,64769,+1-427-754-8240,peter.clark49@example.com,2004-08-30,Male,Part-time,Brazil,false,No specific comments,Graduated,Science,Finance

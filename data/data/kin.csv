@@ -1,0 +1,101 @@
+kin_id,banner_number,name,relationship,street,city,postcode,phone
+1,B0000001,Bob Brown,Friend,857 Cedar Blvd,Fairview,86616,(294) 445-3186
+2,B0000002,Diana Miller,Child,684 Maple Dr,Fairview,29694,(176) 365-2399
+3,B0000003,Ivan Miller,Sibling,961 Cedar Blvd,Greenville,25038,(857) 281-1007
+4,B0000004,Alice Taylor,Child,578 Main St,Lakeside,10183,(274) 269-5768
+5,B0000005,Bob Davis,Other Relative,779 Birch Ct,Oakville,23999,(748) 209-8988
+6,B0000006,Diana Williams,Parent,972 Willow Way,Rivertown,78756,(446) 508-2103
+7,B0000007,Charlie Anderson,Spouse,985 Cedar Blvd,Lakeside,19306,(492) 626-1681
+8,B0000008,Ivan Moore,Spouse,106 Elm Rd,Rivertown,76182,(721) 445-8145
+9,B0000009,Grace Wilson,Friend,501 Pine Ln,Greenville,81525,(359) 780-2407
+10,B0000010,Diana Williams,Parent,990 Main St,Springfield,93935,(641) 849-6501
+11,B0000011,Heidi Anderson,Other Relative,580 Cedar Blvd,Fairview,90603,(376) 224-4141
+12,B0000012,Alice Davis,Sibling,535 Pine Ln,Oakville,64481,(323) 790-4228
+13,B0000013,Charlie Brown,Spouse,768 Pine Ln,Fairview,90123,(545) 501-6892
+14,B0000014,Diana Taylor,Friend,560 Oak Ave,Maplewood,91585,(848) 922-1202
+15,B0000015,Bob Smith,Sibling,694 Pine Ln,Maplewood,94082,(243) 630-6579
+16,B0000016,Grace Smith,Spouse,520 Main St,Springfield,24892,(711) 919-2103
+17,B0000017,Ivan Anderson,Parent,878 Pine Ln,Rivertown,38066,(436) 541-6234
+18,B0000018,Bob Moore,Spouse,950 Willow Way,Rivertown,30397,(665) 219-8196
+19,B0000019,Alice Smith,Parent,906 Oak Ave,Fairview,92268,(762) 727-2620
+20,B0000020,Frank Williams,Parent,224 Willow Way,Greenville,86837,(782) 482-8756
+21,B0000021,Charlie Anderson,Friend,624 Main St,Rivertown,42167,(661) 274-1975
+22,B0000022,Bob Taylor,Friend,857 Oak Ave,Greenville,58458,(820) 437-3911
+23,B0000023,Eve Miller,Parent,127 Maple Dr,Springfield,68759,(855) 922-5981
+24,B0000024,Heidi Davis,Child,546 Main St,Rivertown,52068,(706) 282-3788
+25,B0000025,Judy Wilson,Friend,701 Oak Ave,Brookside,37543,(187) 933-2902
+26,B0000026,Frank Anderson,Spouse,703 Elm Rd,Lakeside,79293,(758) 802-2681
+27,B0000027,Judy Smith,Child,964 Main St,Rivertown,50197,(766) 389-3621
+28,B0000028,Frank Williams,Friend,934 Oak Ave,Rivertown,75902,(684) 696-5429
+29,B0000029,Heidi Smith,Friend,769 Birch Ct,Maplewood,93120,(615) 215-5754
+30,B0000030,Charlie Miller,Parent,150 Main St,Maplewood,20166,(212) 391-1112
+31,B0000031,Judy Anderson,Friend,993 Maple Dr,Maplewood,23204,(869) 186-4545
+32,B0000032,Grace Jones,Spouse,239 Birch Ct,Brookside,21685,(935) 625-6928
+33,B0000033,Bob Davis,Sibling,806 Willow Way,Springfield,52591,(810) 820-7500
+34,B0000034,Diana Miller,Sibling,782 Pine Ln,Rivertown,75468,(691) 695-4105
+35,B0000035,Ivan Brown,Parent,640 Main St,Greenville,14926,(694) 223-5661
+36,B0000036,Alice Davis,Child,452 Birch Ct,Greenville,34727,(975) 272-7753
+37,B0000037,Alice Moore,Other Relative,576 Birch Ct,Lakeside,49264,(429) 257-1093
+38,B0000038,Heidi Miller,Parent,971 Birch Ct,Maplewood,70038,(223) 948-3658
+39,B0000039,Bob Brown,Other Relative,903 Main St,Lakeside,58422,(940) 827-1500
+40,B0000040,Alice Wilson,Spouse,186 Elm Rd,Greenville,61854,(210) 561-5947
+41,B0000041,Bob Smith,Sibling,787 Birch Ct,Springfield,16974,(143) 255-1846
+42,B0000042,Judy Williams,Spouse,237 Willow Way,Oakville,94282,(734) 618-5959
+43,B0000043,Charlie Jones,Child,618 Pine Ln,Maplewood,22125,(818) 414-8140
+44,B0000044,Grace Taylor,Friend,202 Oak Ave,Greenville,64006,(733) 615-9413
+45,B0000045,Judy Moore,Friend,676 Cedar Blvd,Greenville,47524,(633) 500-7606
+46,B0000046,Eve Miller,Child,537 Willow Way,Lakeside,31151,(472) 739-5870
+47,B0000047,Diana Moore,Spouse,413 Willow Way,Fairview,60377,(656) 175-9887
+48,B0000048,Bob Davis,Parent,128 Birch Ct,Maplewood,34559,(250) 574-4057
+49,B0000049,Heidi Brown,Friend,560 Maple Dr,Rivertown,49569,(918) 714-3041
+50,B0000050,Charlie Smith,Other Relative,750 Cedar Blvd,Brookside,53820,(353) 777-7317
+51,B0000051,Eve Brown,Parent,708 Cedar Blvd,Greenville,52380,(568) 784-6356
+52,B0000052,Bob Anderson,Other Relative,499 Oak Ave,Rivertown,47202,(721) 204-7821
+53,B0000053,Charlie Moore,Other Relative,707 Pine Ln,Greenville,64555,(419) 379-3027
+54,B0000054,Eve Brown,Parent,252 Main St,Rivertown,31321,(420) 295-3449
+55,B0000055,Bob Williams,Parent,462 Oak Ave,Rivertown,10425,(836) 216-1416
+56,B0000056,Grace Wilson,Other Relative,309 Cedar Blvd,Brookside,33313,(197) 200-4124
+57,B0000057,Grace Miller,Friend,510 Maple Dr,Springfield,26179,(163) 629-6155
+58,B0000058,Grace Smith,Friend,976 Birch Ct,Greenville,40214,(240) 322-2676
+59,B0000059,Charlie Brown,Spouse,916 Elm Rd,Maplewood,54785,(467) 512-9742
+60,B0000060,Diana Wilson,Sibling,848 Pine Ln,Springfield,42854,(885) 274-4863
+61,B0000061,Bob Wilson,Other Relative,460 Main St,Fairview,61037,(396) 287-9898
+62,B0000062,Frank Miller,Child,149 Birch Ct,Brookside,91655,(356) 832-1202
+63,B0000063,Ivan Smith,Sibling,465 Oak Ave,Maplewood,32232,(844) 228-3417
+64,B0000064,Grace Williams,Child,534 Birch Ct,Springfield,28885,(843) 997-5125
+65,B0000065,Eve Moore,Sibling,864 Elm Rd,Oakville,96980,(504) 278-7439
+66,B0000066,Frank Miller,Child,929 Willow Way,Springfield,42762,(588) 953-2338
+67,B0000067,Frank Williams,Child,754 Birch Ct,Lakeside,84660,(744) 348-3590
+68,B0000068,Grace Moore,Spouse,293 Cedar Blvd,Maplewood,47288,(110) 242-6130
+69,B0000069,Charlie Smith,Other Relative,654 Oak Ave,Greenville,10519,(352) 955-5147
+70,B0000070,Diana Wilson,Parent,664 Pine Ln,Oakville,74250,(262) 347-9796
+71,B0000071,Heidi Smith,Friend,848 Oak Ave,Greenville,20926,(534) 551-1644
+72,B0000072,Charlie Moore,Sibling,601 Birch Ct,Brookside,68303,(933) 558-8767
+73,B0000073,Frank Jones,Spouse,368 Birch Ct,Rivertown,42259,(494) 130-6094
+74,B0000074,Alice Smith,Friend,388 Birch Ct,Fairview,97347,(891) 237-4242
+75,B0000075,Frank Wilson,Other Relative,561 Maple Dr,Rivertown,48679,(767) 749-9769
+76,B0000076,Ivan Moore,Friend,482 Cedar Blvd,Fairview,40025,(605) 755-7989
+77,B0000077,Alice Wilson,Friend,770 Elm Rd,Maplewood,46201,(825) 504-8696
+78,B0000078,Judy Smith,Other Relative,321 Maple Dr,Maplewood,60452,(409) 153-9832
+79,B0000079,Frank Moore,Sibling,481 Willow Way,Lakeside,60203,(817) 997-9179
+80,B0000080,Bob Jones,Friend,718 Birch Ct,Maplewood,18134,(598) 983-3196
+81,B0000081,Charlie Jones,Sibling,869 Oak Ave,Springfield,91818,(176) 140-8353
+82,B0000082,Ivan Jones,Sibling,281 Cedar Blvd,Fairview,54632,(765) 446-3924
+83,B0000083,Grace Moore,Parent,248 Main St,Oakville,43972,(912) 399-1848
+84,B0000084,Judy Brown,Sibling,962 Oak Ave,Springfield,71903,(120) 346-4582
+85,B0000085,Charlie Brown,Child,726 Maple Dr,Fairview,99807,(815) 136-7068
+86,B0000086,Frank Brown,Parent,163 Willow Way,Oakville,16499,(974) 174-1305
+87,B0000087,Judy Brown,Other Relative,360 Willow Way,Lakeside,96768,(804) 789-9078
+88,B0000088,Diana Smith,Parent,755 Oak Ave,Fairview,16637,(248) 390-8568
+89,B0000089,Frank Davis,Child,252 Willow Way,Brookside,64672,(923) 240-6646
+90,B0000090,Ivan Davis,Sibling,929 Birch Ct,Oakville,16648,(383) 287-8082
+91,B0000091,Judy Miller,Friend,214 Oak Ave,Springfield,42746,(454) 396-2060
+92,B0000092,Bob Wilson,Parent,682 Willow Way,Lakeside,84800,(547) 862-9713
+93,B0000093,Frank Moore,Parent,699 Maple Dr,Springfield,78876,(706) 787-4397
+94,B0000094,Alice Moore,Child,315 Cedar Blvd,Oakville,20091,(707) 282-8952
+95,B0000095,Judy Davis,Friend,344 Main St,Lakeside,16746,(964) 544-4832
+96,B0000096,Diana Williams,Friend,317 Oak Ave,Lakeside,67867,(694) 664-6227
+97,B0000097,Bob Taylor,Parent,351 Birch Ct,Fairview,85771,(816) 289-4596
+98,B0000098,Diana Smith,Other Relative,670 Maple Dr,Oakville,56854,(668) 773-2694
+99,B0000099,Charlie Davis,Child,140 Cedar Blvd,Rivertown,24202,(924) 664-3773
+100,B0000100,Charlie Wilson,Spouse,756 Willow Way,Oakville,61273,(914) 623-4124

@@ -1,0 +1,5 @@
+hall_id,hall_name,street,city,postcode,telephone,manager_staff_id
+4001,Grand Central Hall,123 Main St,Metropolis,10001,(555) 123-4567,3001
+4002,Community Event Space,456 Oak Ave,Gotham,20002,(555) 234-5678,3002
+4003,Riverside Convention Center,789 River Rd,Star City,30003,(555) 345-6789,3003
+4004,The Pavilion Hall,101 Park Blvd,Central City,40004,(555) 456-7890,3004
