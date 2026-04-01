@@ -1,7 +1,0 @@
-course_id,course_title,course_year,instructor_name,instructor_phone,instructor_email,instructor_room,department_name
-2001,Introduction to Python,2023,Dr. Alice Smith,555-123-3136,alice.smith@university.edu,B242,Computer Science
-2002,Data Structures and Algorithms,2024,Prof. Bob Johnson,555-123-1216,bob.johnson@university.edu,B278,Computer Science
-2003,Database Management Systems,2023,Dr. Carol White,555-123-2920,carol.white@university.edu,B192,Information Technology
-2004,Web Development Fundamentals,2024,Prof. David Green,555-123-5966,david.green@university.edu,B150,Computer Science
-2005,Machine Learning Basics,2023,Dr. Emily Brown,555-123-9917,emily.brown@university.edu,B172,Data Science
-2006,Operating Systems,2023,Prof. Frank Black,555-123-5464,frank.black@university.edu,B152,Computer Engineering
