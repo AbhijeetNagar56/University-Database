@@ -1,4 +1,4 @@
-12 talbes
+13 Tables
 ___________________________________________________________________
 Students                                                           |
    │                                                               |
@@ -7,23 +7,37 @@ Students                                                           |
    ├── Next_of_Kin                                                 |
    └── Lease                                                       |
                                                                    |
-Lease
-   │
-   └── Place_Number → Hall_Room OR Apartment_Room
-
-Hall
-   │
-   └── Hall_Rooms
-
-Apartment
-   │
-   ├── Apartment_Rooms
-   └── Inspections
-
-Residence_Staff
-   │
-   ├── Hall Manager
-   └── Inspector
+Lease                                                              |
+   │                                                               |
+   └── Place_Number → Places                                       |
+                          │                                        |
+                          ├── Hall_Rooms                           |
+                          │       │                                |
+                          │       └── Hall                         |
+                          │                                        |
+                          └── Apartment_Rooms                      |
+                                  │                                |
+                                  └── Apartment                    |
+                                                                   |
+Invoices                                                           |
+   │                                                               |
+   ├── Lease                                                       |
+   ├── Student                                                     |
+   └── Place_Number → Places                                       |
+                                                                   |
+Apartment                                                          |
+   │                                                               |
+   ├── Apartment_Rooms                                             |
+   └── Inspections                                                 |
+                                                                   |
+Hall                                                               |
+   │                                                               |
+   └── Hall_Rooms                                                  |
+                                                                   |
+Residence_Staff                                                    |
+   │                                                               |
+   ├── Hall Manager → Hall                                         |
+   └── Inspector → Apartment_Inspections                           |
 
 
 ___________________________________________________________________
@@ -175,20 +189,27 @@ city
 postcode
 phone
 
+Places
+--------
+place_number (PK)
+place_type
+
 order of insertion
 1. Advisers
 2. Courses
 3. Residence_Staff
-4. Apartments
-5. Students
-6. Halls
-7. Apartment_Rooms
+4. Students
+5. Halls
+6. Apartments
+7. Places
 8. Hall_Rooms
-9. Next_of_Kin
+9. Apartment_Rooms
 10. Leases
 11. Invoices
 12. Apartment_Inspections
+13. Next_of_Kin
 
+___________________________________________________________________
 
 # creating talbes
 -- Adviser
@@ -215,6 +236,9 @@ CREATE TABLE Apartments (apartment_id INT AUTO_INCREMENT PRIMARY KEY, street VAR
 -- Apartment_Rooms
 CREATE TABLE Apartment_Rooms (place_number INT AUTO_INCREMENT PRIMARY KEY, apartment_id INT NOT NULL, room_number VARCHAR(10), monthly_rent DECIMAL(10,2) NOT NULL, FOREIGN KEY (apartment_id) REFERENCES Apartments(apartment_id));
 
+--Places
+CREATE TABLE Places (place_number INT AUTO_INCREMENT PRIMARY KEY, place_type ENUM('Hall','Apartment') NOT NULL );
+
 -- Leases
 CREATE TABLE Leases (lease_id INT AUTO_INCREMENT PRIMARY KEY, banner_number VARCHAR(15), place_number INT, lease_duration_semesters INT, start_date DATE, end_date DATE, address VARCHAR(200), room_number VARCHAR(10), FOREIGN KEY (banner_number) REFERENCES Students(banner_number));
 
@@ -226,3 +250,86 @@ CREATE TABLE Apartment_Inspections (inspection_id INT AUTO_INCREMENT PRIMARY KEY
 
 -- Next_of_Kin
 CREATE TABLE Next_of_Kin (kin_id INT AUTO_INCREMENT PRIMARY KEY, banner_number VARCHAR(15), name VARCHAR(100) NOT NULL, relationship VARCHAR(50), street VARCHAR(100), city VARCHAR(50), postcode VARCHAR(10), phone VARCHAR(15), FOREIGN KEY (banner_number) REFERENCES Students(banner_number));
+
+___________________________________________________________________
+
+#Adding Foreign Key Constraints
+--Students
+ALTER TABLE Students
+ADD CONSTRAINT fk_students_adviser
+FOREIGN KEY (adviser_id) REFERENCES Advisers(adviser_id)
+ON DELETE SET NULL
+ON UPDATE CASCADE,
+ADD CONSTRAINT fk_students_course
+FOREIGN KEY (course_id) REFERENCES Courses(course_id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
+--Halls
+ALTER TABLE Halls
+ADD CONSTRAINT fk_halls_manager
+FOREIGN KEY (manager_staff_id) REFERENCES Residence_Staff(staff_id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
+--Hall_Rooms
+ALTER TABLE Hall_Rooms
+ADD CONSTRAINT fk_hallrooms_hall
+FOREIGN KEY (hall_id) REFERENCES Halls(hall_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+ADD CONSTRAINT fk_hallrooms_place
+FOREIGN KEY (place_number) REFERENCES Places(place_number)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+--Apartment_Rooms
+ALTER TABLE Apartment_Rooms
+ADD CONSTRAINT fk_apartmentrooms_apartment
+FOREIGN KEY (apartment_id) REFERENCES Apartments(apartment_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+ADD CONSTRAINT fk_apartmentrooms_place
+FOREIGN KEY (place_number) REFERENCES Places(place_number)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+--Leases
+ALTER TABLE Leases
+ADD CONSTRAINT fk_leases_student
+FOREIGN KEY (banner_number) REFERENCES Students(banner_number)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+ADD CONSTRAINT fk_leases_place
+FOREIGN KEY (place_number) REFERENCES Places(place_number)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+--Invoices
+ALTER TABLE Leases
+ADD CONSTRAINT fk_leases_student
+FOREIGN KEY (banner_number) REFERENCES Students(banner_number)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+ADD CONSTRAINT fk_leases_place
+FOREIGN KEY (place_number) REFERENCES Places(place_number)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+--Apartment_Inspections
+ALTER TABLE Apartment_Inspections
+ADD CONSTRAINT fk_inspections_apartment
+FOREIGN KEY (apartment_id) REFERENCES Apartments(apartment_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+ADD CONSTRAINT fk_inspections_staff
+FOREIGN KEY (staff_id) REFERENCES Residence_Staff(staff_id)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
+--Next_of_Kin
+ALTER TABLE Next_of_Kin
+ADD CONSTRAINT fk_kin_student
+FOREIGN KEY (banner_number) REFERENCES Students(banner_number)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
