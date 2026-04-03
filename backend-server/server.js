@@ -8,6 +8,7 @@ import session from "express-session";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 
+import places from './routes/places.js'
 import studentsRoutes from "./routes/students.js";
 import advisersRoutes from "./routes/advisers.js";
 import coursesRoutes from "./routes/courses.js";
@@ -100,6 +101,7 @@ app.use("/leases", isAuthenticated, leasesRoutes);
 app.use("/invoices", isAuthenticated, invoicesRoutes);
 app.use("/inspections", isAuthenticated, inspectionsRoutes);
 app.use("/kin", isAuthenticated, kinRoutes);
+app.use("/places", isAuthenticated, places);
 app.use("/reports", isAuthenticated, reportsRoutes);
 
 // root
