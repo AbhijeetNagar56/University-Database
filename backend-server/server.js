@@ -20,6 +20,7 @@ import leasesRoutes from "./routes/leases.js";
 import invoicesRoutes from "./routes/invoices.js";
 import inspectionsRoutes from "./routes/apartmentInspections.js";
 import kinRoutes from "./routes/nextOfKin.js";
+import reportsRoutes from "./routes/reports.js";
 
 import pool from "./db.js";
 
@@ -99,6 +100,7 @@ app.use("/leases", isAuthenticated, leasesRoutes);
 app.use("/invoices", isAuthenticated, invoicesRoutes);
 app.use("/inspections", isAuthenticated, inspectionsRoutes);
 app.use("/kin", isAuthenticated, kinRoutes);
+app.use("/reports", isAuthenticated, reportsRoutes);
 
 // root
 app.get("/", (req, res) => {
