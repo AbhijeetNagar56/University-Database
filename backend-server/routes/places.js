@@ -10,6 +10,14 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const [rows] = await pool.query(
+    "SELECT * FROM Students WHERE place_number=?",
+    [req.params.id]
+  );
+  res.json(rows);
+});
+
+router.get("/:id", async (req, res) => {
+  const [rows] = await pool.query(
     "SELECT * FROM Places WHERE place_number=?",
     [req.params.id]
   );

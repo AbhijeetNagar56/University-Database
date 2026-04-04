@@ -8,6 +8,14 @@ router.get("/", async (req, res) => {
   res.json(rows);
 });
 
+router.get("/:id", async (req, res) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM Students WHERE lease_id=?",
+    [req.params.id]
+  );
+  res.json(rows);
+});
+
 router.post("/", async (req, res) => {
   await pool.query("INSERT INTO Leases SET ?", req.body);
   res.json({ message: "Lease created" });
