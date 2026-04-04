@@ -126,7 +126,7 @@ app.post("/query", isAuthenticated, async (req, res) => {
 const allowedTables = new Set([
   "Students","Advisers","Courses","Residence_Staff","Halls",
   "Hall_Rooms","Apartments","Apartment_Rooms","Leases",
-  "Invoices","Apartment_Inspections","Next_of_Kin"
+  "Invoices","Apartment_Inspections","Next_of_Kin","Places"
 ]);
 
 const storage = multer.diskStorage({
