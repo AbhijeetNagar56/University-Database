@@ -74,7 +74,7 @@ router.get("/student-rent/:bannerNumber", async (req, res) => {
 
 // (e) Present a report on students who have not paid their invoices by a given date.
 router.get("/unpaid-invoices", async (req, res) => {
-  const cutoffDate = new Date(); // Current date and time
+  const cutoffDate = new Date();
   const [rows] = await pool.query(
     `
       SELECT
@@ -90,14 +90,14 @@ router.get("/unpaid-invoices", async (req, res) => {
       FROM Invoices i
       INNER JOIN Students s ON i.banner_number = s.banner_number
       WHERE i.date_paid IS NULL
+        OR i.date_paid > ?
         AND (
-          ? IS NULL
-          OR i.first_reminder_date <= ?
+          i.first_reminder_date <= ?
           OR i.second_reminder_date <= ?
         )
       ORDER BY s.banner_number, i.invoice_id
     `,
-    [cutoffDate ?? null, cutoffDate ?? null, cutoffDate ?? null]
+    [cutoffDate, cutoffDate, cutoffDate]
   );
   res.json(rows);
 });
