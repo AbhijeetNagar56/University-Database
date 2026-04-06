@@ -16,7 +16,9 @@ https://miro.com/app/board/uXjVGqHM6t4=/?share_link_id=403010924186
 **Slides:**  <br>
 https://docs.google.com/presentation/d/1zf8mIF7wuFQSIvtOsww9sp7eeHGtCgw4K3nlrMQe78E/edit?usp=sharing <br>
 **Data** <br>
-https://docs.google.com/spreadsheets/d/1VzOW0-EFZCYp7Q5IWrp1OcKQwEcF1hzdyCQUQarg250/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/1VzOW0-EFZCYp7Q5IWrp1OcKQwEcF1hzdyCQUQarg250/edit?usp=sharing <br>
+**Website** <br>
+https://university-database.onrender.com
 
 **Login Page → Query Console Sample Query**
 
