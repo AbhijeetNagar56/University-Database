@@ -13,7 +13,7 @@ https://dbdiagram.io/d/69bbc8a978c6c4bc7a1fe414
 **API Diagram:**  
 https://miro.com/app/board/uXjVGqHM6t4=/?share_link_id=403010924186  
 
-**Slides**
+**Slides:**  <br>
 https://docs.google.com/presentation/d/1zf8mIF7wuFQSIvtOsww9sp7eeHGtCgw4K3nlrMQe78E/edit?usp=sharing
 
 **Login Page → Query Console Sample Query**
