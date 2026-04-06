@@ -74,7 +74,7 @@ router.get("/student-rent/:bannerNumber", async (req, res) => {
 
 // (e) Present a report on students who have not paid their invoices by a given date.
 router.get("/unpaid-invoices", async (req, res) => {
-  const cutoffDate = req.query.date;
+  const cutoffDate = const cutoffDate = new Date(); // Current date and time
   const [rows] = await pool.query(
     `
       SELECT
