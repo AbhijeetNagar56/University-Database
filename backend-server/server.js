@@ -41,6 +41,7 @@ const SESSION_SECRET = process.env.SESSION_SECRET || "fallback_secret";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const uploadsDir = path.join(__dirname, "uploads");
+const frontendDistDir = path.join(__dirname, "../frontend/dist");
 
 // create uploads folder
 if (!fs.existsSync(uploadsDir)) {
@@ -54,7 +55,8 @@ const sessionStore = new MySQLStore({}, pool);
 // middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(frontendDistDir));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 app.use(session({
   key: "session_cookie_name",
@@ -113,11 +115,6 @@ app.use("/inspections", isAuthenticated, inspectionsRoutes);
 app.use("/kin", isAuthenticated, kinRoutes);
 app.use("/places", isAuthenticated, places);
 app.use("/reports", isAuthenticated, reportsRoutes);
-
-// root
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
 
 // ================= QUERY =================
 
@@ -203,6 +200,10 @@ app.post("/upload-csv/:table", isAuthenticated, upload.single("file"), async (re
 
 app.use((err, _req, res, _next) => {
   res.status(500).json({ error: err.message });
+});
+
+app.get(/^\/(?!ping|login|logout|query|upload-csv|students|advisers|courses|staff|halls|hallrooms|apartments|apartmentrooms|leases|invoices|inspections|kin|places|reports).*/, (_req, res) => {
+  res.sendFile(path.join(frontendDistDir, "index.html"));
 });
 
 // ================= START =================
