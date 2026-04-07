@@ -8,6 +8,7 @@ import Modal from '../components/Modal';
 import FormField from '../components/FormField';
 import DeleteConfirm from '../components/DeleteConfirm';
 import LoadingSpinner from '../components/LoadingSpinner';
+import RecordDetails from '../components/RecordDetails';
 import { getStaff, createStaff, updateStaff, deleteStaff } from '../services/api';
 
 const Staff = () => {
@@ -15,8 +16,10 @@ const Staff = () => {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [detailStaff, setDetailStaff] = useState(null);
   const [saving, setSaving] = useState(false);
   const [ageFilter, setAgeFilter] = useState(false);
 
@@ -31,6 +34,7 @@ const Staff = () => {
   const openAdd = () => { setEditing(null); setForm(emptyForm); setShowForm(true); };
   const openEdit = (row) => { setEditing(row); setForm({...emptyForm,...row,date_of_birth:row.date_of_birth?.split('T')[0]||''}); setShowForm(true); };
   const openDelete = (row) => { setDeleteTarget(row); setShowDelete(true); };
+  const openDetail = (row) => { setDetailStaff(row); setShowDetail(true); };
 
   const handleSave = async (e) => { e.preventDefault(); setSaving(true); try { if(editing) await updateStaff(editing.staff_id,form); else await createStaff(form); setShowForm(false); fetchAll(); } catch(err){ alert(err.response?.data?.error||'Failed'); } finally{ setSaving(false); } };
   const handleDelete = async () => { try { await deleteStaff(deleteTarget.staff_id); setShowDelete(false); fetchAll(); } catch(err){ alert(err.response?.data?.error||'Failed'); } };
@@ -70,7 +74,7 @@ const Staff = () => {
         {ageFilter && <span style={{fontSize:'0.75rem',color:'#475569'}}>Showing {filtered.length} of {staff.length}</span>}
       </div>
 
-      <DataTable columns={columns} data={filtered} onEdit={openEdit} onDelete={openDelete} searchKeys={['first_name','last_name','position','location']} />
+      <DataTable columns={columns} data={filtered} onView={openDetail} onEdit={openEdit} onDelete={openDelete} searchKeys={['first_name','last_name','position','location']} />
 
       <Modal isOpen={showForm} onClose={()=>setShowForm(false)} title={editing?'Edit Staff':'Add Staff'} size="md">
         <form onSubmit={handleSave} style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px'}}>
@@ -89,6 +93,21 @@ const Staff = () => {
             <button type="submit" disabled={saving} className="btn-primary">{saving?'Saving...':editing?'Update':'Create'}</button>
           </div>
         </form>
+      </Modal>
+      <Modal isOpen={showDetail} onClose={() => setShowDetail(false)} title="Staff Details" size="md">
+        {detailStaff && <RecordDetails items={[
+          { label: 'Staff ID', value: detailStaff.staff_id },
+          { label: 'First Name', value: detailStaff.first_name },
+          { label: 'Last Name', value: detailStaff.last_name },
+          { label: 'Email', value: detailStaff.email },
+          { label: 'Date of Birth', value: detailStaff.date_of_birth ? new Date(detailStaff.date_of_birth).toLocaleDateString() : '—' },
+          { label: 'Gender', value: detailStaff.gender },
+          { label: 'Position', value: detailStaff.position },
+          { label: 'Location', value: detailStaff.location },
+          { label: 'Street', value: detailStaff.street },
+          { label: 'City', value: detailStaff.city },
+          { label: 'Postcode', value: detailStaff.postcode },
+        ]} />}
       </Modal>
       <DeleteConfirm isOpen={showDelete} onClose={()=>setShowDelete(false)} onConfirm={handleDelete} itemName={`${deleteTarget?.first_name} ${deleteTarget?.last_name}`}/>
     </div>

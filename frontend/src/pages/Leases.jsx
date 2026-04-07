@@ -11,6 +11,7 @@ import Modal from '../components/Modal';
 import FormField from '../components/FormField';
 import DeleteConfirm from '../components/DeleteConfirm';
 import LoadingSpinner from '../components/LoadingSpinner';
+import RecordDetails from '../components/RecordDetails';
 import { getLeases, createLease, updateLease, deleteLease, getStudents } from '../services/api';
 
 const cleanPayload = (obj) => {
@@ -27,8 +28,10 @@ const Leases = () => {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [detailLease, setDetailLease] = useState(null);
   const [saving, setSaving] = useState(false);
 
   const emptyForm = {
@@ -60,6 +63,7 @@ const Leases = () => {
     setShowForm(true);
   };
   const openDelete = (row) => { setDeleteTarget(row); setShowDelete(true); };
+  const openDetail = (row) => { setDetailLease(row); setShowDetail(true); };
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -111,7 +115,7 @@ const Leases = () => {
         <button onClick={openAdd} className="btn-primary"><Plus style={{ width: 16, height: 16 }} /> Add Lease</button>
       </div>
 
-      <DataTable columns={columns} data={leases} onEdit={openEdit} onDelete={openDelete} searchKeys={['lease_id', 'banner_number', 'address']} />
+      <DataTable columns={columns} data={leases} onView={openDetail} onEdit={openEdit} onDelete={openDelete} searchKeys={['lease_id', 'banner_number', 'address']} />
 
       <Modal isOpen={showForm} onClose={() => setShowForm(false)} title={editing ? 'Edit Lease' : 'Add Lease'} size="md">
         <form onSubmit={handleSave} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
@@ -129,6 +133,19 @@ const Leases = () => {
             <button type="submit" disabled={saving} className="btn-primary">{saving ? 'Saving...' : editing ? 'Update' : 'Create'}</button>
           </div>
         </form>
+      </Modal>
+      <Modal isOpen={showDetail} onClose={() => setShowDetail(false)} title="Lease Details" size="md">
+        {detailLease && <RecordDetails items={[
+          { label: 'Lease ID', value: detailLease.lease_id },
+          { label: 'Student', value: getStudentName(detailLease.banner_number) },
+          { label: 'Banner Number', value: detailLease.banner_number },
+          { label: 'Place Number', value: detailLease.place_number },
+          { label: 'Room Number', value: detailLease.room_number },
+          { label: 'Duration', value: detailLease.lease_duration_semesters },
+          { label: 'Start Date', value: detailLease.start_date ? new Date(detailLease.start_date).toLocaleDateString() : '—' },
+          { label: 'End Date', value: detailLease.end_date ? new Date(detailLease.end_date).toLocaleDateString() : '—' },
+          { label: 'Address', value: detailLease.address },
+        ]} />}
       </Modal>
 
       <DeleteConfirm isOpen={showDelete} onClose={() => setShowDelete(false)} onConfirm={handleDelete} itemName={`Lease ${deleteTarget?.lease_id}`} />

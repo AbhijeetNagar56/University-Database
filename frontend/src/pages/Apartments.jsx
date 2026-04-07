@@ -8,6 +8,7 @@ import Modal from '../components/Modal';
 import FormField from '../components/FormField';
 import DeleteConfirm from '../components/DeleteConfirm';
 import LoadingSpinner from '../components/LoadingSpinner';
+import RecordDetails from '../components/RecordDetails';
 import { getApartments, createApartment, updateApartment, deleteApartment, getApartmentRooms, createApartmentRoom, deleteApartmentRoom } from '../services/api';
 
 const Apartments = () => {
@@ -15,12 +16,14 @@ const Apartments = () => {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
   const [showRooms, setShowRooms] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [saving, setSaving] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [selectedApt, setSelectedApt] = useState(null);
+  const [detailApartment, setDetailApartment] = useState(null);
 
   const emptyForm = { street: '', city: '', postcode: '', num_bedrooms: '' };
   const [form, setForm] = useState(emptyForm);
@@ -34,6 +37,7 @@ const Apartments = () => {
   const openAdd = () => { setEditing(null); setForm(emptyForm); setShowForm(true); };
   const openEdit = (row) => { setEditing(row); setForm({ ...emptyForm, ...row }); setShowForm(true); };
   const openDelete = (row) => { setDeleteTarget(row); setShowDelete(true); };
+  const openDetail = (row) => { setDetailApartment(row); setShowDetail(true); };
 
   const openRooms = async (apt) => {
     setSelectedApt(apt);
@@ -68,7 +72,7 @@ const Apartments = () => {
         <button onClick={openAdd} className="btn-primary"><Plus style={{ width: 16, height: 16 }} /> Add Apartment</button>
       </div>
 
-      <DataTable columns={columns} data={apartments} onEdit={openEdit} onDelete={openDelete} searchKeys={['street', 'city']} />
+      <DataTable columns={columns} data={apartments} onView={openDetail} onEdit={openEdit} onDelete={openDelete} searchKeys={['street', 'city']} />
 
       <Modal isOpen={showForm} onClose={() => setShowForm(false)} title={editing ? 'Edit Apartment' : 'Add Apartment'} size="md">
         <form onSubmit={handleSave} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
@@ -94,6 +98,15 @@ const Apartments = () => {
           { key: 'place_number', label: 'Place #' }, { key: 'room_number', label: 'Room #' },
           { key: 'monthly_rent', label: 'Rent', render: (row) => <span style={{ color: '#34d399', fontWeight: 600 }}>£{row.monthly_rent || 0}</span> },
         ]} data={rooms} onDelete={(r) => handleDeleteRoom(r.place_number)} />
+      </Modal>
+      <Modal isOpen={showDetail} onClose={() => setShowDetail(false)} title="Apartment Details" size="md">
+        {detailApartment && <RecordDetails items={[
+          { label: 'Apartment ID', value: detailApartment.apartment_id },
+          { label: 'Street', value: detailApartment.street },
+          { label: 'City', value: detailApartment.city },
+          { label: 'Postcode', value: detailApartment.postcode },
+          { label: 'Bedrooms', value: detailApartment.num_bedrooms },
+        ]} />}
       </Modal>
 
       <DeleteConfirm isOpen={showDelete} onClose={() => setShowDelete(false)} onConfirm={handleDelete} itemName={`Apartment ${deleteTarget?.apartment_id}`} />

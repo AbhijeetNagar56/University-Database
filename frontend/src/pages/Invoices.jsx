@@ -9,6 +9,7 @@ import Modal from '../components/Modal';
 import FormField from '../components/FormField';
 import DeleteConfirm from '../components/DeleteConfirm';
 import LoadingSpinner from '../components/LoadingSpinner';
+import RecordDetails from '../components/RecordDetails';
 import { getInvoices, createInvoice, updateInvoice, deleteInvoice, getStudents, getLeases } from '../services/api';
 
 const cleanPayload = (obj) => {
@@ -26,10 +27,12 @@ const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
   const [showPay, setShowPay] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [payTarget, setPayTarget] = useState(null);
+  const [detailInvoice, setDetailInvoice] = useState(null);
   const [saving, setSaving] = useState(false);
   const [payFilter, setPayFilter] = useState('');
 
@@ -68,6 +71,7 @@ const Invoices = () => {
     setShowForm(true);
   };
   const openDelete = (row) => { setDeleteTarget(row); setShowDelete(true); };
+  const openDetail = (row) => { setDetailInvoice(row); setShowDetail(true); };
   const openMarkPaid = (row) => {
     setPayTarget(row);
     setPayForm({ date_paid: new Date().toISOString().split('T')[0], payment_method: '' });
@@ -132,7 +136,7 @@ const Invoices = () => {
       <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
         {[{ v: '', l: 'All' }, { v: 'unpaid', l: 'Unpaid' }, { v: 'paid', l: 'Paid' }].map(({ v, l }) => (<button key={v} onClick={() => setPayFilter(v)} className={`filter-btn ${payFilter === v ? 'filter-btn-active' : ''}`}>{l}</button>))}
       </div>
-      <DataTable columns={columns} data={filtered} onEdit={openEdit} onDelete={openDelete} searchKeys={['invoice_id', 'banner_number', 'semester']} />
+      <DataTable columns={columns} data={filtered} onView={openDetail} onEdit={openEdit} onDelete={openDelete} searchKeys={['invoice_id', 'banner_number', 'semester']} />
 
       {/* Main Invoice Form Modal */}
       <Modal isOpen={showForm} onClose={() => setShowForm(false)} title={editing ? 'Edit Invoice' : 'Create Invoice'} size="lg">
@@ -165,6 +169,23 @@ const Invoices = () => {
             <button type="submit" className="btn-primary" style={{ background: 'linear-gradient(135deg,#10b981,#059669)' }}>Confirm</button>
           </div>
         </form>
+      </Modal>
+      <Modal isOpen={showDetail} onClose={() => setShowDetail(false)} title="Invoice Details" size="md">
+        {detailInvoice && <RecordDetails items={[
+          { label: 'Invoice ID', value: detailInvoice.invoice_id },
+          { label: 'Lease ID', value: detailInvoice.lease_id },
+          { label: 'Student', value: getStudentName(detailInvoice.banner_number) },
+          { label: 'Banner Number', value: detailInvoice.banner_number },
+          { label: 'Semester', value: detailInvoice.semester },
+          { label: 'Payment Due', value: detailInvoice.payment_due ? `£${detailInvoice.payment_due}` : '—' },
+          { label: 'Place Number', value: detailInvoice.place_number },
+          { label: 'Room Number', value: detailInvoice.room_number },
+          { label: 'Address', value: detailInvoice.address },
+          { label: 'Date Paid', value: detailInvoice.date_paid ? new Date(detailInvoice.date_paid).toLocaleDateString() : 'Unpaid' },
+          { label: 'Payment Method', value: detailInvoice.payment_method },
+          { label: 'First Reminder', value: detailInvoice.first_reminder_date ? new Date(detailInvoice.first_reminder_date).toLocaleDateString() : '—' },
+          { label: 'Second Reminder', value: detailInvoice.second_reminder_date ? new Date(detailInvoice.second_reminder_date).toLocaleDateString() : '—' },
+        ]} />}
       </Modal>
       <DeleteConfirm isOpen={showDelete} onClose={() => setShowDelete(false)} onConfirm={handleDelete} itemName={`Invoice ${deleteTarget?.invoice_id}`} />
     </div>

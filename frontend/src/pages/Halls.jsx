@@ -8,6 +8,7 @@ import Modal from '../components/Modal';
 import FormField from '../components/FormField';
 import DeleteConfirm from '../components/DeleteConfirm';
 import LoadingSpinner from '../components/LoadingSpinner';
+import RecordDetails from '../components/RecordDetails';
 import { getHalls, createHall, updateHall, deleteHall, getHallRooms, createHallRoom, deleteHallRoom, getStaff } from '../services/api';
 
 const Halls = () => {
@@ -16,12 +17,14 @@ const Halls = () => {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
   const [showRooms, setShowRooms] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [saving, setSaving] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [selectedHall, setSelectedHall] = useState(null);
+  const [detailHall, setDetailHall] = useState(null);
 
   const emptyForm = { hall_name: '', street: '', city: '', postcode: '', telephone: '', manager_staff_id: '' };
   const [form, setForm] = useState(emptyForm);
@@ -44,6 +47,11 @@ const Halls = () => {
   const openAdd = () => { setEditing(null); setForm(emptyForm); setShowForm(true); };
   const openEdit = (row) => { setEditing(row); setForm({ ...emptyForm, ...row }); setShowForm(true); };
   const openDelete = (row) => { setDeleteTarget(row); setShowDelete(true); };
+  const openDetail = (row) => { setDetailHall(row); setShowDetail(true); };
+  const getManagerName = (id) => {
+    const staff = staffList.find((row) => row.staff_id === id);
+    return staff ? `${staff.first_name} ${staff.last_name}` : '—';
+  };
 
   const openRooms = async (hall) => {
     setSelectedHall(hall);
@@ -105,7 +113,7 @@ const Halls = () => {
         <button onClick={openAdd} className="btn-primary"><Plus style={{ width: 16, height: 16 }} /> Add Hall</button>
       </div>
 
-      <DataTable columns={columns} data={halls} onEdit={openEdit} onDelete={openDelete} searchKeys={['hall_name', 'city']} />
+      <DataTable columns={columns} data={halls} onView={openDetail} onEdit={openEdit} onDelete={openDelete} searchKeys={['hall_name', 'city']} />
 
       {/* Add/Edit Modal */}
       <Modal isOpen={showForm} onClose={() => setShowForm(false)} title={editing ? 'Edit Hall' : 'Add Hall'} size="md">
@@ -137,6 +145,17 @@ const Halls = () => {
           { key: 'place_number', label: 'Place #' }, { key: 'room_number', label: 'Room #' },
           { key: 'monthly_rent', label: 'Rent', render: (row) => <span style={{ color: '#34d399', fontWeight: 600 }}>£{row.monthly_rent || 0}</span> },
         ]} data={rooms} onDelete={(r) => handleDeleteRoom(r.place_number)} />
+      </Modal>
+      <Modal isOpen={showDetail} onClose={() => setShowDetail(false)} title="Hall Details" size="md">
+        {detailHall && <RecordDetails items={[
+          { label: 'Hall ID', value: detailHall.hall_id },
+          { label: 'Hall Name', value: detailHall.hall_name },
+          { label: 'Manager', value: getManagerName(detailHall.manager_staff_id) },
+          { label: 'Telephone', value: detailHall.telephone },
+          { label: 'Street', value: detailHall.street },
+          { label: 'City', value: detailHall.city },
+          { label: 'Postcode', value: detailHall.postcode },
+        ]} />}
       </Modal>
 
       <DeleteConfirm isOpen={showDelete} onClose={() => setShowDelete(false)} onConfirm={handleDelete} itemName={deleteTarget?.hall_name} />

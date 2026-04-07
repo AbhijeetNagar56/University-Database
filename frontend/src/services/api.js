@@ -50,6 +50,7 @@ export const deleteHall = (id) => API.delete(`/halls/${id}`);
 
 // ======================== HALL ROOMS ========================
 export const getHallRooms = () => API.get('/hallrooms');
+export const getHallRoomById = (id) => API.get(`/hallrooms/${id}`);
 export const createHallRoom = (data) => API.post('/hallrooms', data);
 export const updateHallRoom = (id, data) => API.put(`/hallrooms/${id}`, data);
 export const deleteHallRoom = (id) => API.delete(`/hallrooms/${id}`);
@@ -62,6 +63,7 @@ export const deleteApartment = (id) => API.delete(`/apartments/${id}`);
 
 // ======================== APARTMENT ROOMS ========================
 export const getApartmentRooms = () => API.get('/apartmentrooms');
+export const getApartmentRoomById = (id) => API.get(`/apartmentrooms/${id}`);
 export const createApartmentRoom = (data) => API.post('/apartmentrooms', data);
 export const updateApartmentRoom = (id, data) => API.put(`/apartmentrooms/${id}`, data);
 export const deleteApartmentRoom = (id) => API.delete(`/apartmentrooms/${id}`);
@@ -81,12 +83,21 @@ export const deleteInvoice = (id) => API.delete(`/invoices/${id}`);
 // ======================== INSPECTIONS ========================
 export const getInspections = () => API.get('/inspections');
 export const createInspection = (data) => API.post('/inspections', data);
+export const updateInspection = (id, data) => API.put(`/inspections/${id}`, data);
 export const deleteInspection = (id) => API.delete(`/inspections/${id}`);
 
 // ======================== NEXT OF KIN ========================
 export const getNextOfKin = () => API.get('/kin');
 export const createNextOfKin = (data) => API.post('/kin', data);
+export const updateNextOfKin = (id, data) => API.put(`/kin/${id}`, data);
 export const deleteNextOfKin = (id) => API.delete(`/kin/${id}`);
+
+// ======================== PLACES ========================
+export const getPlaces = () => API.get('/places');
+export const getPlaceById = (id) => API.get(`/places/${id}`);
+export const createPlace = (data) => API.post('/places', data);
+export const updatePlace = (id, data) => API.put(`/places/${id}`, data);
+export const deletePlace = (id) => API.delete(`/places/${id}`);
 
 // ======================== REPORTS (a–n) ========================
 export const getReportA = () => API.get('/reports/hall-managers');

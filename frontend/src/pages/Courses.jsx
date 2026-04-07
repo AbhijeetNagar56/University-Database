@@ -8,6 +8,7 @@ import Modal from '../components/Modal';
 import FormField from '../components/FormField';
 import DeleteConfirm from '../components/DeleteConfirm';
 import LoadingSpinner from '../components/LoadingSpinner';
+import RecordDetails from '../components/RecordDetails';
 import { getCourses, createCourse, updateCourse, deleteCourse } from '../services/api';
 
 const Courses = () => {
@@ -15,8 +16,10 @@ const Courses = () => {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [detailCourse, setDetailCourse] = useState(null);
   const [saving, setSaving] = useState(false);
 
   const emptyForm = { course_title:'', course_year:'', instructor_name:'', instructor_phone:'', instructor_email:'', instructor_room:'', department_name:'' };
@@ -29,6 +32,7 @@ const Courses = () => {
   const openAdd = () => { setEditing(null); setForm(emptyForm); setShowForm(true); };
   const openEdit = (row) => { setEditing(row); setForm({...emptyForm,...row}); setShowForm(true); };
   const openDelete = (row) => { setDeleteTarget(row); setShowDelete(true); };
+  const openDetail = (row) => { setDetailCourse(row); setShowDetail(true); };
 
   const handleSave = async (e) => { e.preventDefault(); setSaving(true); try { if(editing) await updateCourse(editing.course_id,form); else await createCourse(form); setShowForm(false); fetchAll(); } catch(err){ alert(err.response?.data?.error||'Failed'); } finally{ setSaving(false); } };
   const handleDelete = async () => { try { await deleteCourse(deleteTarget.course_id); setShowDelete(false); fetchAll(); } catch(err){ alert(err.response?.data?.error||'Failed'); } };
@@ -50,7 +54,7 @@ const Courses = () => {
         <div><h1 style={{ fontSize:'1.75rem', fontWeight:800, color:'white', marginBottom:'4px' }}>Courses</h1><p style={{ color:'#64748b', fontSize:'0.875rem' }}>Manage academic courses</p></div>
         <button onClick={openAdd} className="btn-primary"><Plus style={{width:16,height:16}}/> Add Course</button>
       </div>
-      <DataTable columns={columns} data={courses} onEdit={openEdit} onDelete={openDelete} searchKeys={['course_title','instructor_name','department_name']} />
+      <DataTable columns={columns} data={courses} onView={openDetail} onEdit={openEdit} onDelete={openDelete} searchKeys={['course_title','instructor_name','department_name']} />
 
       <Modal isOpen={showForm} onClose={()=>setShowForm(false)} title={editing?'Edit Course':'Add Course'} size="md">
         <form onSubmit={handleSave} style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px'}}>
@@ -66,6 +70,18 @@ const Courses = () => {
             <button type="submit" disabled={saving} className="btn-primary">{saving?'Saving...':editing?'Update':'Create'}</button>
           </div>
         </form>
+      </Modal>
+      <Modal isOpen={showDetail} onClose={() => setShowDetail(false)} title="Course Details" size="md">
+        {detailCourse && <RecordDetails items={[
+          { label: 'Course ID', value: detailCourse.course_id },
+          { label: 'Course Title', value: detailCourse.course_title },
+          { label: 'Course Year', value: detailCourse.course_year },
+          { label: 'Instructor', value: detailCourse.instructor_name },
+          { label: 'Instructor Phone', value: detailCourse.instructor_phone },
+          { label: 'Instructor Email', value: detailCourse.instructor_email },
+          { label: 'Instructor Room', value: detailCourse.instructor_room },
+          { label: 'Department', value: detailCourse.department_name },
+        ]} />}
       </Modal>
       <DeleteConfirm isOpen={showDelete} onClose={()=>setShowDelete(false)} onConfirm={handleDelete} itemName={deleteTarget?.course_title}/>
     </div>

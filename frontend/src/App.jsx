@@ -7,11 +7,16 @@ import Layout from './components/Layout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Students from './pages/Students';
+import Advisers from './pages/Advisers';
 import Halls from './pages/Halls';
+import HallRooms from './pages/HallRooms';
 import Apartments from './pages/Apartments';
+import ApartmentRooms from './pages/ApartmentRooms';
+import Places from './pages/Places';
 import Leases from './pages/Leases';
 import Invoices from './pages/Invoices';
 import Inspections from './pages/Inspections';
+import NextOfKin from './pages/NextOfKin';
 import Staff from './pages/Staff';
 import Courses from './pages/Courses';
 import Reports from './pages/Reports';
@@ -62,11 +67,16 @@ const App = () => {
           {/* Protected routes — wrapped in Layout with sidebar/navbar */}
           <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/students" element={<ProtectedRoute><Students /></ProtectedRoute>} />
+          <Route path="/advisers" element={<ProtectedRoute><Advisers /></ProtectedRoute>} />
           <Route path="/halls" element={<ProtectedRoute><Halls /></ProtectedRoute>} />
+          <Route path="/hallrooms" element={<ProtectedRoute><HallRooms /></ProtectedRoute>} />
           <Route path="/apartments" element={<ProtectedRoute><Apartments /></ProtectedRoute>} />
+          <Route path="/apartmentrooms" element={<ProtectedRoute><ApartmentRooms /></ProtectedRoute>} />
+          <Route path="/places" element={<ProtectedRoute><Places /></ProtectedRoute>} />
           <Route path="/leases" element={<ProtectedRoute><Leases /></ProtectedRoute>} />
           <Route path="/invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} />
           <Route path="/inspections" element={<ProtectedRoute><Inspections /></ProtectedRoute>} />
+          <Route path="/kin" element={<ProtectedRoute><NextOfKin /></ProtectedRoute>} />
           <Route path="/staff" element={<ProtectedRoute><Staff /></ProtectedRoute>} />
           <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
           <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />

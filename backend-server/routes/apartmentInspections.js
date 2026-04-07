@@ -22,6 +22,15 @@ router.post("/", asyncHandler(async (req, res) => {
   res.json({ message: "Inspection added" });
 }));
 
+router.put("/:id", asyncHandler(async (req, res) => {
+  await pool.query("UPDATE Apartment_Inspections SET ? WHERE inspection_id=?", [
+    req.body,
+    req.params.id
+  ]);
+
+  res.json({ message: "Inspection updated" });
+}));
+
 router.delete("/:id", asyncHandler(async (req, res) => {
   await pool.query("DELETE FROM Apartment_Inspections WHERE inspection_id=?", [
     req.params.id

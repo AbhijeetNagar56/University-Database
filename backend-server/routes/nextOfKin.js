@@ -22,6 +22,15 @@ router.post("/", asyncHandler(async (req, res) => {
   res.json({ message: "Kin added" });
 }));
 
+router.put("/:id", asyncHandler(async (req, res) => {
+  await pool.query("UPDATE Next_of_Kin SET ? WHERE kin_id=?", [
+    req.body,
+    req.params.id
+  ]);
+
+  res.json({ message: "Kin updated" });
+}));
+
 router.delete("/:id", asyncHandler(async (req, res) => {
   await pool.query("DELETE FROM Next_of_Kin WHERE kin_id=?", [
     req.params.id

@@ -8,7 +8,8 @@ import Modal from '../components/Modal';
 import FormField from '../components/FormField';
 import DeleteConfirm from '../components/DeleteConfirm';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { getInspections, createInspection, deleteInspection, getApartments, getStaff } from '../services/api';
+import RecordDetails from '../components/RecordDetails';
+import { getInspections, createInspection, updateInspection, deleteInspection, getApartments, getStaff } from '../services/api';
 
 const Inspections = () => {
   const [inspections, setInspections] = useState([]);
@@ -17,7 +18,10 @@ const Inspections = () => {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
+  const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [detailInspection, setDetailInspection] = useState(null);
   const [saving, setSaving] = useState(false);
   const [filter, setFilter] = useState('');
 
@@ -27,11 +31,14 @@ const Inspections = () => {
   useEffect(() => { fetchAll(); }, []);
   const fetchAll = async () => { try { setLoading(true); const [i,a,s] = await Promise.all([getInspections(), getApartments(), getStaff()]); setInspections(i.data); setApartments(a.data); setStaff(s.data); } catch {} finally { setLoading(false); } };
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  const openAdd = () => { setForm(emptyForm); setShowForm(true); };
+  const openAdd = () => { setEditing(null); setForm(emptyForm); setShowForm(true); };
+  const openEdit = (row) => { setEditing(row); setForm({ ...emptyForm, ...row, inspection_date: row.inspection_date?.split('T')[0] || '', satisfactory: row.satisfactory === 1 || row.satisfactory === '1' || row.satisfactory === true || row.satisfactory === 'Yes' ? '1' : '0' }); setShowForm(true); };
   const openDelete = (row) => { setDeleteTarget(row); setShowDelete(true); };
-  const handleSave = async (e) => { e.preventDefault(); setSaving(true); try { await createInspection(form); setShowForm(false); fetchAll(); } catch (err) { alert(err.response?.data?.error||'Failed'); } finally { setSaving(false); } };
+  const openDetail = (row) => { setDetailInspection(row); setShowDetail(true); };
+  const handleSave = async (e) => { e.preventDefault(); setSaving(true); try { if (editing) await updateInspection(editing.inspection_id, form); else await createInspection(form); setShowForm(false); fetchAll(); } catch (err) { alert(err.response?.data?.error||'Failed'); } finally { setSaving(false); } };
   const handleDelete = async () => { try { await deleteInspection(deleteTarget.inspection_id); setShowDelete(false); fetchAll(); } catch (err) { alert(err.response?.data?.error||'Failed'); } };
   const getStaffName = (id) => { const s = staff.find(s => s.staff_id === id); return s ? `${s.first_name} ${s.last_name}` : '—'; };
+  const getApartmentLabel = (id) => { const a = apartments.find(a => a.apartment_id === id); return a ? `${a.street}, ${a.city}` : `Apartment ${id}`; };
   const isSat = (v) => v === 'Yes' || v === 1 || v === '1' || v === true;
 
   const filtered = inspections.filter(i => { if (filter === 'pass') return isSat(i.satisfactory); if (filter === 'fail') return !isSat(i.satisfactory); return true; });
@@ -59,9 +66,9 @@ const Inspections = () => {
       <div style={{ display:'flex', gap:'8px', marginBottom:'20px' }}>
         {[{v:'',l:'All'},{v:'pass',l:'Satisfactory'},{v:'fail',l:'Unsatisfactory'}].map(({v,l})=>(<button key={v} onClick={()=>setFilter(v)} className={`filter-btn ${filter===v?'filter-btn-active':''}`}>{l}</button>))}
       </div>
-      <DataTable columns={columns} data={filtered} onDelete={openDelete} searchKeys={['apartment_id','comments']} />
+      <DataTable columns={columns} data={filtered} onView={openDetail} onEdit={openEdit} onDelete={openDelete} searchKeys={['apartment_id','comments']} />
 
-      <Modal isOpen={showForm} onClose={()=>setShowForm(false)} title="Add Inspection" size="md">
+      <Modal isOpen={showForm} onClose={()=>setShowForm(false)} title={editing ? 'Edit Inspection' : 'Add Inspection'} size="md">
         <form onSubmit={handleSave} style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px'}}>
           <FormField label="Apartment" name="apartment_id" type="select" value={form.apartment_id} onChange={handleChange} required options={apartments.map(a=>({value:a.apartment_id,label:`Apt ${a.apartment_id} — ${a.street}`}))}/>
           <FormField label="Inspector" name="staff_id" type="select" value={form.staff_id} onChange={handleChange} required options={staff.map(s=>({value:s.staff_id,label:`${s.first_name} ${s.last_name}`}))}/>
@@ -73,6 +80,18 @@ const Inspections = () => {
             <button type="submit" disabled={saving} className="btn-primary">{saving?'Saving...':'Create'}</button>
           </div>
         </form>
+      </Modal>
+      <Modal isOpen={showDetail} onClose={() => setShowDetail(false)} title="Inspection Details" size="md">
+        {detailInspection && <RecordDetails items={[
+          { label: 'Inspection ID', value: detailInspection.inspection_id },
+          { label: 'Apartment', value: getApartmentLabel(detailInspection.apartment_id) },
+          { label: 'Apartment ID', value: detailInspection.apartment_id },
+          { label: 'Inspector', value: getStaffName(detailInspection.staff_id) },
+          { label: 'Staff ID', value: detailInspection.staff_id },
+          { label: 'Inspection Date', value: detailInspection.inspection_date ? new Date(detailInspection.inspection_date).toLocaleDateString() : '—' },
+          { label: 'Result', value: isSat(detailInspection.satisfactory) ? 'Satisfactory' : 'Unsatisfactory' },
+          { label: 'Comments', value: detailInspection.comments },
+        ]} />}
       </Modal>
       <DeleteConfirm isOpen={showDelete} onClose={()=>setShowDelete(false)} onConfirm={handleDelete} itemName={`Inspection ${deleteTarget?.inspection_id}`}/>
     </div>

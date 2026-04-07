@@ -7,17 +7,23 @@ import { useAuth } from '../context/AuthContext';
 import {
   LayoutDashboard, Users, Building2, Building, FileText,
   Receipt, ClipboardCheck, UserCog, BarChart3, BookOpen,
-  LogOut, Menu, X, GraduationCap, ChevronRight,
+  LogOut, Menu, X, GraduationCap, ChevronRight, UserRoundSearch,
+  DoorOpen, BedDouble, MapPinned, HeartHandshake,
 } from 'lucide-react';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/students', icon: Users, label: 'Students' },
+  { to: '/advisers', icon: UserRoundSearch, label: 'Advisers' },
   { to: '/halls', icon: Building2, label: 'Halls' },
+  { to: '/hallrooms', icon: DoorOpen, label: 'Hall Rooms' },
   { to: '/apartments', icon: Building, label: 'Apartments' },
+  { to: '/apartmentrooms', icon: BedDouble, label: 'Apartment Rooms' },
+  { to: '/places', icon: MapPinned, label: 'Places' },
   { to: '/leases', icon: FileText, label: 'Leases' },
   { to: '/invoices', icon: Receipt, label: 'Invoices' },
   { to: '/inspections', icon: ClipboardCheck, label: 'Inspections' },
+  { to: '/kin', icon: HeartHandshake, label: 'Next Of Kin' },
   { to: '/staff', icon: UserCog, label: 'Staff' },
   { to: '/courses', icon: BookOpen, label: 'Courses' },
   { to: '/reports', icon: BarChart3, label: 'Reports' },
